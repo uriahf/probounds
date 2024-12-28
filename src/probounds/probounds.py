@@ -68,3 +68,7 @@ def calculate_bounds_combined_by_feature(df_observed, df_experimental, feature):
         print(f"Benefit Bounds: {bounds_combined_by_feature[value]['lower_bound']} <= Benefit|{value} <= {bounds_combined_by_feature[value]['upper_bound']}")
     
     return bounds_combined_by_feature
+
+def calculate_bounds_observed(df_observed):
+    probounds_crosstab_observed = create_probounds_crosstab(df_observed, 'observational')
+    return (calculate_bounds_observed_from_probounds_data(probounds_crosstab_observed))

@@ -1,13 +1,21 @@
-# Changelog
+# CHANGELOG
 
-<!--next-version-placeholder-->
 
-## v0.1.0 (23/12/2024)
+## v0.0.0 (2024-12-28)
 
-- First release of `probounds`!
+### Build System
 
-## v0.2.0 (28/12/2024)
+- Add pytest and pytest-cov to poetry.lock and pyproject.toml
+  ([`b0ad126`](https://github.com/uriahf/probounds/commit/b0ad12639b5248c2f3e215bbaadcce046a74b681))
 
-### Feature
+- Add test for `create_probounds_crosstab()`
+  ([`1f98439`](https://github.com/uriahf/probounds/commit/1f984396792c852fdb57175469a5798034c770f0))
 
-- Added `calculate_bounds_combined()`
+- Add ValueError to `create_probounds_crosstab()`
+  ([`77f932c`](https://github.com/uriahf/probounds/commit/77f932c822821944fd7bfc3ccbca78be9be5667e))
+
+- Add version_variable to pyproject.toml
+  ([`d796c2f`](https://github.com/uriahf/probounds/commit/d796c2fc1a967cbc2a3e72cf49330a1474fa4a19))
+
+- Update CHANGELOG.md for release v0.2.0
+  ([`2101eb6`](https://github.com/uriahf/probounds/commit/2101eb685e5afb6ad4887aca84962a9934fa7a18))

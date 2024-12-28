@@ -1,6 +1,25 @@
 # CHANGELOG
 
 
+## v0.3.0 (2024-12-28)
+
+### Build System
+
+- Add log for .semantic-release if steps.release.outputs.released == 'false'
+  ([`5a62bad`](https://github.com/uriahf/probounds/commit/5a62bad65e8233157f3084f39e7cc47ffd4629f2))
+
+- Update pyproject.toml for tools.semantic_release
+  ([`400e594`](https://github.com/uriahf/probounds/commit/400e594dbdae2e107c788ee21130338f843faa02))
+
+### Features
+
+- Add `calculate_bounds_experimental()`
+  ([`d511905`](https://github.com/uriahf/probounds/commit/d511905a321062c4526706d5fe50a12666d9acfa))
+
+- Add `calculate_bounds_observed_by_feature()`
+  ([`ce28f77`](https://github.com/uriahf/probounds/commit/ce28f776581bd3756752c2459eaeeca93d392bde))
+
+
 ## v0.2.0 (2024-12-28)
 
 ### Build System

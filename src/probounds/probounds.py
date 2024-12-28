@@ -54,3 +54,17 @@ def calculate_bounds_combined(raw_data_observational, raw_data_experimental):
     }
 
     return bounds_dict
+
+
+def calculate_bounds_combined_by_feature(df_observed, df_experimental, feature):
+    bounds_combined_by_feature = {}
+    unique_values = df_observed[feature].unique()
+    
+    for value in unique_values:
+        filtered_observed = df_observed[df_observed[feature] == value]
+        filtered_experimental = df_experimental[df_experimental[feature] == value]
+        bounds = calculate_bounds_combined(filtered_observed, filtered_experimental)
+        bounds_combined_by_feature[value] = bounds
+        print(f"Benefit Bounds: {bounds_combined_by_feature[value]['lower_bound']} <= Benefit|{value} <= {bounds_combined_by_feature[value]['upper_bound']}")
+    
+    return bounds_combined_by_feature

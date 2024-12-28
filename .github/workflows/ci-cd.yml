@@ -92,7 +92,7 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN }}
 
       - name: Publish package distributions to GitHub Releases
-        uses: python-semantic-release/upload-to-gh-release@main
+        uses: python-semantic-release/publish-action@v9.15.2
         if: steps.release.outputs.released == 'true'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

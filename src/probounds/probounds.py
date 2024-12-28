@@ -38,3 +38,19 @@ def calculate_bounds_experimental_from_probounds_data(probounds_data):
     print(f"Benefit Bounds: {bounds_dict['lower_bound']} <= Benefit <= {bounds_dict['upper_bound']}")
     return bounds_dict
 
+
+def calculate_bounds_combined(raw_data_observational, raw_data_experimental):
+    probounds_crosstab_observed = create_probounds_crosstab(raw_data_observational, 'observational')
+    probounds_crosstab_experimental = create_probounds_crosstab(raw_data_experimental, 'experimental')
+
+    prevalence = probounds_crosstab_observed.loc['All',1]
+
+    lower_bound = max(0, prevalence - probounds_crosstab_experimental.loc[0, 1], probounds_crosstab_experimental.loc[1, 1] - prevalence, probounds_crosstab_experimental.loc[1, 1] - probounds_crosstab_experimental.loc[0, 1])
+    upper_bound = min(probounds_crosstab_experimental.loc[1, 1], probounds_crosstab_experimental.loc[0, 0], probounds_crosstab_observed.loc[1, 1] + probounds_crosstab_observed.loc[0, 0], probounds_crosstab_experimental.loc[1, 1] - probounds_crosstab_experimental.loc[0, 1] + probounds_crosstab_observed.loc[1, 1] + probounds_crosstab_observed.loc[0, 0])
+
+    bounds_dict = {
+        'lower_bound': lower_bound,
+        'upper_bound': upper_bound
+    }
+
+    return bounds_dict

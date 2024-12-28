@@ -1,6 +1,22 @@
 # CHANGELOG
 
 
+## v0.2.0 (2024-12-28)
+
+### Build System
+
+- Bump patch update for debug
+  ([`abcdb86`](https://github.com/uriahf/probounds/commit/abcdb862719417a8f322427244872d90df0d102b))
+
+- Update manually probounds version in pyproject.toml
+  ([`44ef427`](https://github.com/uriahf/probounds/commit/44ef4277c1e5e762084539e7a575f79d6e206717))
+
+### Features
+
+- Add `calculate_bounds_observed()`
+  ([`cc39155`](https://github.com/uriahf/probounds/commit/cc39155baacb2ff03830d22cd69a51c4209bc62e))
+
+
 ## v0.1.0 (2024-12-28)
 
 ### Build System

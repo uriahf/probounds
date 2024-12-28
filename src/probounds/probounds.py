@@ -72,3 +72,7 @@ def calculate_bounds_combined_by_feature(df_observed, df_experimental, feature):
 def calculate_bounds_observed(df_observed):
     probounds_crosstab_observed = create_probounds_crosstab(df_observed, 'observational')
     return (calculate_bounds_observed_from_probounds_data(probounds_crosstab_observed))
+
+def calculate_bounds_experimental(df_experimental):
+    probounds_crosstab_experimental = create_probounds_crosstab(df_experimental, 'experimental')
+    return (calculate_bounds_observed_from_probounds_data(probounds_crosstab_experimental))

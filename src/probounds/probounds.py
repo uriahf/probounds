@@ -76,3 +76,15 @@ def calculate_bounds_observed(df_observed):
 def calculate_bounds_experimental(df_experimental):
     probounds_crosstab_experimental = create_probounds_crosstab(df_experimental, 'experimental')
     return (calculate_bounds_observed_from_probounds_data(probounds_crosstab_experimental))
+
+def calculate_bounds_observed_by_feature(df_observed, feature):
+    bounds_combined_by_feature = {}
+    unique_values = df_observed[feature].unique()
+    
+    for value in unique_values:
+        filtered_observed = df_observed[df_observed[feature] == value]
+        bounds = calculate_bounds_observed(filtered_observed)
+        bounds_combined_by_feature[value] = bounds
+        print(f"Benefit Bounds: {bounds_combined_by_feature[value]['lower_bound']} <= Benefit|{value} <= {bounds_combined_by_feature[value]['upper_bound']}")
+    
+    return bounds_combined_by_feature

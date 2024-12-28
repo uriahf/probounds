@@ -5,6 +5,9 @@ def create_probounds_crosstab(raw_data, datatype):
         normalizeby = 'all'
     elif (datatype == 'experimental'):
         normalizeby = 'index'
+    else:
+        raise ValueError("Invalid datatype. Expected 'observed' or 'experimental'.")
+
 
     probounds_crosstab = pd.crosstab(
         raw_data["trt"], 

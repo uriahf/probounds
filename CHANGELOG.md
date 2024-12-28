@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.1.0 (2024-12-28)
+
+### Build System
+
+- Add emantic-release version
+  ([`446bc22`](https://github.com/uriahf/probounds/commit/446bc227d25c52ff0eba5ce6e84affb0dd3e285c))
+
+### Features
+
+- Add `calculate_bounds_combined_by_feature()`
+  ([`bc59966`](https://github.com/uriahf/probounds/commit/bc59966b3249c5ba50faee09365f299049faffa5))
+
+
 ## v0.0.0 (2024-12-28)
 
 ### Build System

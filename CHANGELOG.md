@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.3.1 (2024-12-28)
+
+### Bug Fixes
+
+- Fix `calculate_bounds_experimental()`
+  ([`164c096`](https://github.com/uriahf/probounds/commit/164c0960b7d49ef91a2ae8485ec914569726b6bb))
+
+
 ## v0.3.0 (2024-12-28)
 
 ### Build System

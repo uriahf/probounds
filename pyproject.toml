@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "probounds"
-version = "0.3.0"
+version = "0.3.1"
 description = ""
 authors = ["Uriah Finkel <Ufinkel@gmail.com>"]
 readme = "README.md"

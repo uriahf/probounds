@@ -2,6 +2,7 @@ brand: _brand.yml
 project:
   type: website
   output-dir: _site
+  resources:
     - _brand.yml
 
 website:

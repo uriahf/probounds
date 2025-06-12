@@ -14,6 +14,8 @@ dev = [
     "probounds",
     "pytest>=8.4.0",
     "ruff>=0.11.13",
+    "pre-commit>=3.7.0",
+    "uv>=0.1.0",
 ]
 
 [tool.uv.sources]

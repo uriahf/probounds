@@ -306,6 +306,7 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "pandas" },
+    { name = "probounds" },
     { name = "pytest" },
     { name = "ruff" },
 ]
@@ -316,6 +317,7 @@ requires-dist = [{ name = "pandas", specifier = ">=2.2.3,<3.0.0" }]
 [package.metadata.requires-dev]
 dev = [
     { name = "pandas", specifier = ">=2.3.0" },
+    { name = "probounds", virtual = "." },
     { name = "pytest", specifier = ">=8.4.0" },
     { name = "ruff", specifier = ">=0.11.13" },
 ]

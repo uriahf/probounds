@@ -11,6 +11,17 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pandas>=2.3.0",
+    "probounds",
     "pytest>=8.4.0",
     "ruff>=0.11.13",
 ]
+
+[tool.uv.sources]
+probounds = { workspace = true }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+pythonpath = ["src"]

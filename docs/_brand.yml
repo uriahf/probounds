@@ -1,0 +1,11 @@
+website:
+  navbar:
+    background: "#283d6b"
+    foreground: "#ffffff"
+  page-navigation: true
+format:
+  html:
+    theme: cosmo
+    mainfont: Lato
+    monofont: Fira Code
+    linkcolor: "#283d6b"

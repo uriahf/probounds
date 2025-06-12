@@ -1,0 +1,30 @@
+[project]
+name = "probounds"
+version = "0.3.2"
+description = "Probability bounds project"
+authors = [{ name = "Uriah Finkel", email = "ufinkel@gmail.com" }]
+requires-python = ">=3.9"
+dependencies = [
+  "pandas>=2.2.3,<3.0.0"
+]
+
+[dependency-groups]
+dev = [
+    "pandas>=2.3.0",
+    "probounds",
+    "pytest>=8.4.0",
+    "ruff>=0.11.13",
+    "pre-commit>=3.7.0",
+    "uv>=0.1.0",
+    "quartodoc>=0.11.1",
+]
+
+[tool.uv.sources]
+probounds = { workspace = true }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+pythonpath = ["src"]

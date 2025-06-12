@@ -1,15 +1,15 @@
+brand: _brand.yml
 project:
   type: website
   output-dir: _site
-  metadata-files:
     - _brand.yml
 
 website:
   title: "probounds"
-  logo: logo.svg
-  favicon: logo.svg
   navbar:
     left:
+      - href: README.md
+        text: Overview
       - href: index.md
         text: Home
       - href: example.ipynb
@@ -25,4 +25,3 @@ website:
 
 quartodoc:
   package: probounds
-  output: api

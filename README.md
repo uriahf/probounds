@@ -2,6 +2,11 @@
 
 Estimating Bounds for Probabilities of Causation
 
+The core ideas for `probounds` draw on Scott Muller's research on *benefit bounds*,
+which provides a rigorous framework for evaluating causal benefit.
+You can read more in [his overview of benefit bounds](https://example.com/muller-benefit-bounds)
+and explore implementations in his [GitHub repository](https://github.com/scott-muller).
+
 ## Installation
 
 ```bash

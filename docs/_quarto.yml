@@ -1,9 +1,13 @@
 project:
   type: website
   output-dir: _site
+  metadata-files:
+    - _brand.yml
 
 website:
   title: "probounds"
+  logo: logo.svg
+  favicon: logo.svg
   navbar:
     left:
       - href: index.md

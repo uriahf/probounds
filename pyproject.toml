@@ -1,32 +1,27 @@
-[tool.poetry]
+[project]
 name = "probounds"
-version = "0.3.1"
-description = ""
-authors = ["Uriah Finkel <Ufinkel@gmail.com>"]
-readme = "README.md"
+version = "0.1.0"
+description = "Probability bounds project"
+authors = [{ name = "Uriah Finkel", email = "ufinkel@gmail.com" }]
+requires-python = ">=3.9"
+dependencies = [
+  "pandas>=2.2.3,<3.0.0"
+]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-pandas = "^2.2.3"
+[dependency-groups]
+dev = [
+    "pandas>=2.3.0",
+    "probounds",
+    "pytest>=8.4.0",
+    "ruff>=0.11.13",
+]
 
+[tool.uv.sources]
+probounds = { workspace = true }
 
-[tool.poetry.group.dev.dependencies]
-myst-nb = {version = "^1.1.2", python = "^3.9"}
-sphinx-autoapi = "^3.4.0"
-sphinx-rtd-theme = "^3.0.2"
-python-semantic-release = "^9.15.2"
-pytest = "^8.3.4"
-pytest-cov = "^6.0.0"
+[tool.setuptools.packages.find]
+where = ["src"]
 
-[tool.semantic_release]
-version_variable = "pyproject.toml:version"
-version_toml = [
-    "pyproject.toml:tool.poetry.version",
-]                                                     # version location
-branch = "main"                                       # branch to make releases of
-changelog_file = "CHANGELOG.md"                       # changelog file
-build_command = "pip install poetry && poetry build"  # build dists    
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.pytest.ini_options]
+addopts = "-ra"
+pythonpath = ["src"]

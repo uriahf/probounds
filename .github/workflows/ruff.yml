@@ -16,4 +16,4 @@ jobs:
       - name: Check formatting
         run: ruff format --check .
       - name: Lint
-        run: ruff .
+        run: ruff check .

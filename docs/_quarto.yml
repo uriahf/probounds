@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "probounds"
+  navbar:
+    left:
+      - href: index.md
+        text: Home
+      - href: example.ipynb
+        text: Example
+      - href: changelog.md
+        text: Changelog
+      - href: contributing.md
+        text: Contributing
+      - href: conduct.md
+        text: Code of Conduct
+      - href: api/index.qmd
+        text: API Reference
+
+quartodoc:
+  package: probounds
+  output: api

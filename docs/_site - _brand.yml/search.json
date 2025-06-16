@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "probounds",
+    "section": "",
+    "text": "pmfhagiww ../README.md"
+  },
+  {
+    "objectID": "contributing.html",
+    "href": "contributing.html",
+    "title": "probounds",
+    "section": "",
+    "text": "kahhrhoxw ../CONTRIBUTING.md"
+  },
+  {
+    "objectID": "changelog.html",
+    "href": "changelog.html",
+    "title": "probounds",
+    "section": "",
+    "text": "anplbqkzs ../CHANGELOG.md"
+  },
+  {
+    "objectID": "conduct.html",
+    "href": "conduct.html",
+    "title": "probounds",
+    "section": "",
+    "text": "oeyhrffqb ../CONDUCT.md"
+  },
+  {
+    "objectID": "example.html",
+    "href": "example.html",
+    "title": "Example usage",
+    "section": "",
+    "text": "To use probounds in a project:\nimport probounds.probounds as pb\nimport pandas as pd\nimport numpy as np\ndf_observed = pd.DataFrame(\n    {\n        \"trt\": np.concatenate([np.repeat(1, 1400), np.repeat(0, 600)] * 2),\n        \"outcome\": [1] * 378\n        + [0] * 1022\n        + [1] * 420\n        + [0] * 180\n        + [1] * 980\n        + [0] * 420\n        + [1] * 420\n        + [0] * 180,\n        \"sex\": [\"Female\"] * 2000 + [\"Male\"] * 2000,\n    }\n)\n\ndf_experimental = pd.DataFrame(\n    {\n        \"trt\": np.concatenate([np.repeat(1, 1000), np.repeat(0, 1000)] * 2),\n        \"outcome\": [1] * 489\n        + [0] * 511\n        + [1] * 210\n        + [0] * 790\n        + [1] * 490\n        + [0] * 510\n        + [1] * 210\n        + [0] * 790,\n        \"sex\": [\"Female\"] * 2000 + [\"Male\"] * 2000,\n    }\n)\n\nprobounds_crosstab_observed = pb.create_probounds_crosstab(\n    df_observed, datatype=\"observational\"\n)\nprobounds_crosstab_experimental = pb.create_probounds_crosstab(\n    df_experimental, datatype=\"experimental\"\n)\nprobounds_crosstab_observed = pb.create_probounds_crosstab(\n    df_observed, datatype=\"observational\"\n)\nprobounds_crosstab_experimental = pb.create_probounds_crosstab(\n    df_experimental, datatype=\"experimental\"\n)\n\n\nprobounds_crosstab_observed_by_sex = pb.probounds_crosstab_feature(\n    df_observed, \"observational\", \"sex\"\n)\nprobounds_crosstab_experimental_by_sex = pb.probounds_crosstab_feature(\n    df_experimental, \"experimental\", \"sex\"\n)\npb.calculate_bounds_observed_from_probounds_data(probounds_crosstab_observed)\npb.calculate_bounds_observed_from_probounds_data(\n    probounds_crosstab_observed_by_sex[\"Female\"]\n)\npb.calculate_bounds_observed_from_probounds_data(\n    probounds_crosstab_observed_by_sex[\"Male\"]\n)\n\npb.calculate_bounds_experimental_from_probounds_data(probounds_crosstab_experimental)\npb.calculate_bounds_experimental_from_probounds_data(\n    probounds_crosstab_experimental_by_sex[\"Female\"]\n)\npb.calculate_bounds_experimental_from_probounds_data(\n    probounds_crosstab_experimental_by_sex[\"Male\"]\n)\n\nBenefit Bounds: 0 &lt;= Benefit &lt;= 0.4295\nBenefit Bounds: 0 &lt;= Benefit &lt;= 0.279\nBenefit Bounds: 0 &lt;= Benefit &lt;= 0.58\nBenefit Bounds: 0.27949999999999997 &lt;= Benefit &lt;= 0.4895\nBenefit Bounds: 0.279 &lt;= Benefit &lt;= 0.489\nBenefit Bounds: 0.28 &lt;= Benefit &lt;= 0.49\n\n\n{'lower_bound': np.float64(0.28), 'upper_bound': np.float64(0.49)}"
+  },
+  {
+    "objectID": "example.html#calculate-bounds-directly-from-data",
+    "href": "example.html#calculate-bounds-directly-from-data",
+    "title": "Example usage",
+    "section": "Calculate Bounds Directly from Data",
+    "text": "Calculate Bounds Directly from Data\n\nObservational Data\n\npb.calculate_bounds_observed(df_observed)\npb.calculate_bounds_observed_by_feature(df_observed, \"sex\")\n\nBenefit Bounds: 0 &lt;= Benefit &lt;= 0.4295\n\n\n\n---------------------------------------------------------------------------\nAttributeError                            Traceback (most recent call last)\nCell In[18], line 2\n      1 pb.calculate_bounds_observed(df_observed)\n----&gt; 2 pb.calculate_bounds_observed_by_feature(df_observed, 'sex')\n\nAttributeError: module 'probounds.probounds' has no attribute 'calculate_bounds_observed_by_feature'\n\n\n\n\n\nExperimental Data\n\npb.calculate_bounds_experimental(df_experimental)\npb.calculate_bounds_experimental(df_experimental[df_experimental[\"sex\"] == \"Female\"])\npb.calculate_bounds_experimental(df_experimental[df_experimental[\"sex\"] == \"Male\"])\n\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.2795\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.279\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.28\n\n\n{'lower_bound': 0, 'upper_bound': np.float64(1.28)}\n\n\n\n\nCombined Data\n\npb.calculate_bounds_combined(df_observed, df_experimental)\npb.calculate_bounds_combined(\n    df_observed[df_observed[\"sex\"] == \"Female\"],\n    df_experimental[df_experimental[\"sex\"] == \"Female\"],\n)\npb.calculate_bounds_combined(\n    df_observed[df_observed[\"sex\"] == \"Male\"],\n    df_experimental[df_experimental[\"sex\"] == \"Male\"],\n)\n\n{'lower_bound': np.float64(0.49), 'upper_bound': np.float64(0.49)}"
+  },
+  {
+    "objectID": "example.html#calculate-bounds-by-feature",
+    "href": "example.html#calculate-bounds-by-feature",
+    "title": "Example usage",
+    "section": "Calculate Bounds by Feature",
+    "text": "Calculate Bounds by Feature\n\npb.calculate_bounds_combined_by_feature(df_observed, df_experimental, \"sex\")\n\nBenefit Bounds: 0.279 &lt;= Benefit|Female &lt;= 0.279\nBenefit Bounds: 0.49 &lt;= Benefit|Male &lt;= 0.49\n\n\n{'Female': {'lower_bound': np.float64(0.279),\n  'upper_bound': np.float64(0.279)},\n 'Male': {'lower_bound': np.float64(0.49), 'upper_bound': np.float64(0.49)}}"
+  }
+]

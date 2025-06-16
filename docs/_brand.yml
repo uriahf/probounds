@@ -1,0 +1,19 @@
+color:
+  palette:
+    # Neutral-gray background with deep blue and accent orange
+    dark-grey: "#1c1c1c"
+    soft-blue: "#ddeaf1"
+    accent-orange: "#ff8800"
+    off-white: "#f9f9f9"
+  background: off-white
+  foreground: dark-grey
+  primary: accent-orange
+
+typography:
+  fonts:
+    - family: Commissioner
+      source: google
+    - family: Fraunces
+      source: google
+  base: Commissioner
+  headings: Fraunces

@@ -1,0 +1,6 @@
+# probounds.create_probounds_crosstab { #probounds.probounds.create_probounds_crosstab }
+
+```python
+probounds.create_probounds_crosstab(raw_data, datatype)
+```
+

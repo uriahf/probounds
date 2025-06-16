@@ -1,12 +1,14 @@
 project:
   type: website
-
+  output-dir: _site
+  
 website:
   title: "probounds"
+  site-url: https://uriahf.github.io/probounds/
+  repo-url: https://github.com/uriahf/probounds/
+  repo-actions: [edit, issue]
   navbar:
     left:
-      - href: README.md
-        text: Overview
       - href: index.md
         text: Home
       - href: example.ipynb
@@ -17,8 +19,21 @@ website:
         text: Contributing
       - href: conduct.md
         text: Code of Conduct
-      - href: api/index.qmd
+      - href: reference/index.qmd
         text: API Reference
 
 quartodoc:
+  style: pkgdown
+  dir: reference
   package: probounds
+  sections:
+    - title: Some functions
+      desc: Functions to inspect docstrings.
+      contents:
+        - probounds.create_probounds_crosstab
+
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true

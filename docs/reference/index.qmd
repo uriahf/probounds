@@ -1,0 +1,9 @@
+# Function reference {.doc .doc-index}
+
+## Some functions
+
+Functions to inspect docstrings.
+
+| | |
+| --- | --- |
+| [probounds.create_probounds_crosstab](probounds.create_probounds_crosstab.qmd#probounds.probounds.create_probounds_crosstab) |  |

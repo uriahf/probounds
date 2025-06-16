@@ -1,31 +1,45 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "probounds",
+    "objectID": "reference/probounds.create_probounds_crosstab.html",
+    "href": "reference/probounds.create_probounds_crosstab.html",
+    "title": "1 probounds.create_probounds_crosstab",
     "section": "",
-    "text": "xfgtygpuv ../README.md"
+    "text": "1 probounds.create_probounds_crosstab\nprobounds.create_probounds_crosstab(raw_data, datatype)"
+  },
+  {
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "1 Function reference",
+    "section": "",
+    "text": "Functions to inspect docstrings.\n\n\n\nprobounds.create_probounds_crosstab"
+  },
+  {
+    "objectID": "reference/index.html#some-functions",
+    "href": "reference/index.html#some-functions",
+    "title": "1 Function reference",
+    "section": "",
+    "text": "Functions to inspect docstrings.\n\n\n\nprobounds.create_probounds_crosstab"
   },
   {
     "objectID": "contributing.html",
     "href": "contributing.html",
     "title": "probounds",
     "section": "",
-    "text": "bvokeehpp ../CONTRIBUTING.md"
+    "text": "kbakfgeub ../CONTRIBUTING.md"
   },
   {
     "objectID": "changelog.html",
     "href": "changelog.html",
     "title": "probounds",
     "section": "",
-    "text": "hwcjafyee ../CHANGELOG.md"
+    "text": "zkcitmivc ../CHANGELOG.md"
   },
   {
     "objectID": "conduct.html",
     "href": "conduct.html",
     "title": "probounds",
     "section": "",
-    "text": "tkhbkxgiz ../CONDUCT.md"
+    "text": "lfplgjdid ../CONDUCT.md"
   },
   {
     "objectID": "example.html",
@@ -38,14 +52,63 @@
     "objectID": "example.html#calculate-bounds-directly-from-data",
     "href": "example.html#calculate-bounds-directly-from-data",
     "title": "Example usage",
-    "section": "Calculate Bounds Directly from Data",
-    "text": "Calculate Bounds Directly from Data\n\nObservational Data\n\npb.calculate_bounds_observed(df_observed)\npb.calculate_bounds_observed_by_feature(df_observed, \"sex\")\n\nBenefit Bounds: 0 &lt;= Benefit &lt;= 0.4295\n\n\n\n---------------------------------------------------------------------------\nAttributeError                            Traceback (most recent call last)\nCell In[18], line 2\n      1 pb.calculate_bounds_observed(df_observed)\n----&gt; 2 pb.calculate_bounds_observed_by_feature(df_observed, 'sex')\n\nAttributeError: module 'probounds.probounds' has no attribute 'calculate_bounds_observed_by_feature'\n\n\n\n\n\nExperimental Data\n\npb.calculate_bounds_experimental(df_experimental)\npb.calculate_bounds_experimental(df_experimental[df_experimental[\"sex\"] == \"Female\"])\npb.calculate_bounds_experimental(df_experimental[df_experimental[\"sex\"] == \"Male\"])\n\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.2795\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.279\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.28\n\n\n{'lower_bound': 0, 'upper_bound': np.float64(1.28)}\n\n\n\n\nCombined Data\n\npb.calculate_bounds_combined(df_observed, df_experimental)\npb.calculate_bounds_combined(\n    df_observed[df_observed[\"sex\"] == \"Female\"],\n    df_experimental[df_experimental[\"sex\"] == \"Female\"],\n)\npb.calculate_bounds_combined(\n    df_observed[df_observed[\"sex\"] == \"Male\"],\n    df_experimental[df_experimental[\"sex\"] == \"Male\"],\n)\n\n{'lower_bound': np.float64(0.49), 'upper_bound': np.float64(0.49)}"
+    "section": "1 Calculate Bounds Directly from Data",
+    "text": "1 Calculate Bounds Directly from Data\n\n1.1 Observational Data\n\npb.calculate_bounds_observed(df_observed)\npb.calculate_bounds_observed_by_feature(df_observed, \"sex\")\n\nBenefit Bounds: 0 &lt;= Benefit &lt;= 0.4295\n\n\n\n---------------------------------------------------------------------------\nAttributeError                            Traceback (most recent call last)\nCell In[18], line 2\n      1 pb.calculate_bounds_observed(df_observed)\n----&gt; 2 pb.calculate_bounds_observed_by_feature(df_observed, 'sex')\n\nAttributeError: module 'probounds.probounds' has no attribute 'calculate_bounds_observed_by_feature'\n\n\n\n\n\n1.2 Experimental Data\n\npb.calculate_bounds_experimental(df_experimental)\npb.calculate_bounds_experimental(df_experimental[df_experimental[\"sex\"] == \"Female\"])\npb.calculate_bounds_experimental(df_experimental[df_experimental[\"sex\"] == \"Male\"])\n\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.2795\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.279\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.28\n\n\n{'lower_bound': 0, 'upper_bound': np.float64(1.28)}\n\n\n\n\n1.3 Combined Data\n\npb.calculate_bounds_combined(df_observed, df_experimental)\npb.calculate_bounds_combined(\n    df_observed[df_observed[\"sex\"] == \"Female\"],\n    df_experimental[df_experimental[\"sex\"] == \"Female\"],\n)\npb.calculate_bounds_combined(\n    df_observed[df_observed[\"sex\"] == \"Male\"],\n    df_experimental[df_experimental[\"sex\"] == \"Male\"],\n)\n\n{'lower_bound': np.float64(0.49), 'upper_bound': np.float64(0.49)}"
   },
   {
     "objectID": "example.html#calculate-bounds-by-feature",
     "href": "example.html#calculate-bounds-by-feature",
     "title": "Example usage",
-    "section": "Calculate Bounds by Feature",
-    "text": "Calculate Bounds by Feature\n\npb.calculate_bounds_combined_by_feature(df_observed, df_experimental, \"sex\")\n\nBenefit Bounds: 0.279 &lt;= Benefit|Female &lt;= 0.279\nBenefit Bounds: 0.49 &lt;= Benefit|Male &lt;= 0.49\n\n\n{'Female': {'lower_bound': np.float64(0.279),\n  'upper_bound': np.float64(0.279)},\n 'Male': {'lower_bound': np.float64(0.49), 'upper_bound': np.float64(0.49)}}"
+    "section": "2 Calculate Bounds by Feature",
+    "text": "2 Calculate Bounds by Feature\n\npb.calculate_bounds_combined_by_feature(df_observed, df_experimental, \"sex\")\n\nBenefit Bounds: 0.279 &lt;= Benefit|Female &lt;= 0.279\nBenefit Bounds: 0.49 &lt;= Benefit|Male &lt;= 0.49\n\n\n{'Female': {'lower_bound': np.float64(0.279),\n  'upper_bound': np.float64(0.279)},\n 'Male': {'lower_bound': np.float64(0.49), 'upper_bound': np.float64(0.49)}}"
+  },
+  {
+    "objectID": "reference/get_object.html",
+    "href": "reference/get_object.html",
+    "title": "1 get_object",
+    "section": "",
+    "text": "get_object(\n    path,\n    object_name=None,\n    parser='numpy',\n    load_aliases=True,\n    dynamic=False,\n    loader=None,\n)\nFetch a griffe object.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nstr\nAn import path to the object. This should have the form path.to.module:object. For example, quartodoc:get_object or quartodoc:MdRenderer.render.\nrequired\n\n\nobject_name\n'str | None'\n(Deprecated). A function name.\nNone\n\n\nparser\nstr\nA docstring parser to use.\n'numpy'\n\n\nload_aliases\n\nFor aliases that were imported from other modules, should we load that module?\nTrue\n\n\ndynamic\n\nWhether to dynamically import object. Useful if docstring is not hard-coded, but was set on object by running python code.\nFalse\n\n\n\n\n\n\npreview: print a user-friendly preview of a griffe object.\n\n\n\n&gt;&gt;&gt; get_function(\"quartodoc\", \"get_function\")\n&lt;Function('get_function', ...\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nx\ndc.Object\nabc"
+  },
+  {
+    "objectID": "reference/get_object.html#parameters",
+    "href": "reference/get_object.html#parameters",
+    "title": "1 get_object",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\npath\nstr\nAn import path to the object. This should have the form path.to.module:object. For example, quartodoc:get_object or quartodoc:MdRenderer.render.\nrequired\n\n\nobject_name\n'str | None'\n(Deprecated). A function name.\nNone\n\n\nparser\nstr\nA docstring parser to use.\n'numpy'\n\n\nload_aliases\n\nFor aliases that were imported from other modules, should we load that module?\nTrue\n\n\ndynamic\n\nWhether to dynamically import object. Useful if docstring is not hard-coded, but was set on object by running python code.\nFalse"
+  },
+  {
+    "objectID": "reference/get_object.html#see-also",
+    "href": "reference/get_object.html#see-also",
+    "title": "1 get_object",
+    "section": "",
+    "text": "preview: print a user-friendly preview of a griffe object."
+  },
+  {
+    "objectID": "reference/get_object.html#examples",
+    "href": "reference/get_object.html#examples",
+    "title": "1 get_object",
+    "section": "",
+    "text": "&gt;&gt;&gt; get_function(\"quartodoc\", \"get_function\")\n&lt;Function('get_function', ..."
+  },
+  {
+    "objectID": "reference/get_object.html#returns",
+    "href": "reference/get_object.html#returns",
+    "title": "1 get_object",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nx\ndc.Object\nabc"
+  },
+  {
+    "objectID": "reference/preview.html",
+    "href": "reference/preview.html",
+    "title": "1 preview",
+    "section": "",
+    "text": "preview(ast, max_depth=999, compact=False, as_string=False)\nPrint a friendly representation of a griffe object (e.g. function, docstring)\n\n\n&gt;&gt;&gt; from quartodoc import get_object\n&gt;&gt;&gt; obj = get_object(\"quartodoc\", \"get_object\")\n&gt;&gt;&gt; preview(obj.docstring.parsed)\n...\n&gt;&gt;&gt; preview(obj)\n..."
+  },
+  {
+    "objectID": "reference/preview.html#examples",
+    "href": "reference/preview.html#examples",
+    "title": "1 preview",
+    "section": "",
+    "text": "&gt;&gt;&gt; from quartodoc import get_object\n&gt;&gt;&gt; obj = get_object(\"quartodoc\", \"get_object\")\n&gt;&gt;&gt; preview(obj.docstring.parsed)\n...\n&gt;&gt;&gt; preview(obj)\n..."
   }
 ]

@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d4be639c637f3db3c684c66cefad7e0c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fa43d1da9f0d3877f5852e9da8d4b70d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -142,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Code of Conduct</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./api/index.qmd"> 
+    <a class="nav-link" href="./reference/index.html"> 
 <span class="menu-text">API Reference</span></a>
   </li>  
 </ul>
@@ -156,7 +156,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#calculate-bounds-directly-from-data" id="toc-calculate-bounds-directly-from-data" class="nav-link active" data-scroll-target="#calculate-bounds-directly-from-data"><span class="header-section-number">1</span> Calculate Bounds Directly from Data</a>
+  <ul class="collapse">
+  <li><a href="#observational-data" id="toc-observational-data" class="nav-link" data-scroll-target="#observational-data"><span class="header-section-number">1.1</span> Observational Data</a></li>
+  <li><a href="#experimental-data" id="toc-experimental-data" class="nav-link" data-scroll-target="#experimental-data"><span class="header-section-number">1.2</span> Experimental Data</a></li>
+  <li><a href="#combined-data" id="toc-combined-data" class="nav-link" data-scroll-target="#combined-data"><span class="header-section-number">1.3</span> Combined Data</a></li>
+  </ul></li>
+  <li><a href="#calculate-bounds-by-feature" id="toc-calculate-bounds-by-feature" class="nav-link" data-scroll-target="#calculate-bounds-by-feature"><span class="header-section-number">2</span> Calculate Bounds by Feature</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/uriahf/probounds/blob/main/example.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/uriahf/probounds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -267,10 +281,10 @@ Benefit Bounds: 0.28 &lt;= Benefit &lt;= 0.49</code></pre>
 <pre><code>{'lower_bound': np.float64(0.28), 'upper_bound': np.float64(0.49)}</code></pre>
 </div>
 </div>
-<section id="calculate-bounds-directly-from-data" class="level2">
-<h2 class="anchored" data-anchor-id="calculate-bounds-directly-from-data">Calculate Bounds Directly from Data</h2>
-<section id="observational-data" class="level3">
-<h3 class="anchored" data-anchor-id="observational-data">Observational Data</h3>
+<section id="calculate-bounds-directly-from-data" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="calculate-bounds-directly-from-data"><span class="header-section-number">1</span> Calculate Bounds Directly from Data</h2>
+<section id="observational-data" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="observational-data"><span class="header-section-number">1.1</span> Observational Data</h3>
 <div id="cell-8" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_observed(df_observed)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_observed_by_feature(df_observed, <span class="st">"sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -290,8 +304,8 @@ Cell <span class="ansi-green-fg ansi-bold">In[18], line 2</span>
 </div>
 </div>
 </section>
-<section id="experimental-data" class="level3">
-<h3 class="anchored" data-anchor-id="experimental-data">Experimental Data</h3>
+<section id="experimental-data" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="experimental-data"><span class="header-section-number">1.2</span> Experimental Data</h3>
 <div id="cell-10" class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_experimental(df_experimental)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_experimental(df_experimental[df_experimental[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"Female"</span>])</span>
@@ -306,8 +320,8 @@ Benefit Bounds: 0 &lt;= Benefit &lt;= 1.28</code></pre>
 </div>
 </div>
 </section>
-<section id="combined-data" class="level3">
-<h3 class="anchored" data-anchor-id="combined-data">Combined Data</h3>
+<section id="combined-data" class="level3" data-number="1.3">
+<h3 data-number="1.3" class="anchored" data-anchor-id="combined-data"><span class="header-section-number">1.3</span> Combined Data</h3>
 <div id="cell-12" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_combined(df_observed, df_experimental)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_combined(</span>
@@ -324,8 +338,8 @@ Benefit Bounds: 0 &lt;= Benefit &lt;= 1.28</code></pre>
 </div>
 </section>
 </section>
-<section id="calculate-bounds-by-feature" class="level2">
-<h2 class="anchored" data-anchor-id="calculate-bounds-by-feature">Calculate Bounds by Feature</h2>
+<section id="calculate-bounds-by-feature" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="calculate-bounds-by-feature"><span class="header-section-number">2</span> Calculate Bounds by Feature</h2>
 <div id="cell-14" class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_combined_by_feature(df_observed, df_experimental, <span class="st">"sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -433,7 +447,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/uriahf\.github\.io\/probounds\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -765,4 +779,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/uriahf/probounds/blob/main/example.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/uriahf/probounds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://uriahf.github.io/probounds/index.html</loc>
-    <lastmod>2025-06-12T13:55:41.449Z</lastmod>
+    <loc>https://uriahf.github.io/probounds/reference/probounds.create_probounds_crosstab.html</loc>
+    <lastmod>2025-06-16T14:38:17.353Z</lastmod>
+  </url>
+  <url>
+    <loc>https://uriahf.github.io/probounds/reference/index.html</loc>
+    <lastmod>2025-06-16T14:57:05.030Z</lastmod>
   </url>
   <url>
     <loc>https://uriahf.github.io/probounds/contributing.html</loc>
-    <lastmod>2025-06-12T13:55:41.449Z</lastmod>
+    <lastmod>2025-06-12T14:57:21.273Z</lastmod>
   </url>
   <url>
     <loc>https://uriahf.github.io/probounds/changelog.html</loc>
-    <lastmod>2025-06-12T13:55:41.449Z</lastmod>
+    <lastmod>2025-06-12T14:57:21.265Z</lastmod>
   </url>
   <url>
     <loc>https://uriahf.github.io/probounds/conduct.html</loc>
-    <lastmod>2025-06-12T13:55:41.449Z</lastmod>
+    <lastmod>2025-06-12T14:57:21.272Z</lastmod>
   </url>
   <url>
     <loc>https://uriahf.github.io/probounds/example.html</loc>
     <lastmod>2025-06-12T13:55:41.449Z</lastmod>
+  </url>
+  <url>
+    <loc>https://uriahf.github.io/probounds/reference/get_object.html</loc>
+    <lastmod>2025-06-16T14:26:24.723Z</lastmod>
+  </url>
+  <url>
+    <loc>https://uriahf.github.io/probounds/reference/preview.html</loc>
+    <lastmod>2025-06-16T14:26:24.723Z</lastmod>
   </url>
 </urlset>

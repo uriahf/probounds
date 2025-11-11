@@ -50,7 +50,7 @@ def create_probounds_crosstab(raw_data, datatype):
     counts = (
         dataframe.group_by(["trt", "outcome"])
         .len()
-        .pivot(index="trt", columns="outcome", values="len", maintain_order=True)
+        .pivot(index="trt", on="outcome", values="len", maintain_order=True)
         .sort("trt")
     )
 
@@ -67,39 +67,63 @@ def create_probounds_crosstab(raw_data, datatype):
         *[column for column in value_columns_unsorted if column not in expected_outcomes],
     ]
 
-    counts_filled = counts.with_columns(
-        pl.col("trt").cast(pl.Utf8),
-        *[pl.col(column).fill_null(0).cast(pl.Float64) for column in ordered_value_columns],
+    counts = counts.select(["trt", *ordered_value_columns])
+
+    counts_filled = counts.select(
+        pl.col("trt").cast(pl.Utf8).alias("trt"),
+        *[
+            pl.col(column).fill_null(0).cast(pl.Float64).alias(column)
+            for column in ordered_value_columns
+        ],
     )
 
     total_count = float(dataframe.height)
 
     if normalizeby == "all":
-        normalized = counts_filled.with_columns(
-            *[(pl.col(column) / total_count).alias(column) for column in ordered_value_columns]
+        normalized = counts_filled.select(
+            "trt",
+            *[
+                (pl.col(column) / total_count).alias(column)
+                for column in ordered_value_columns
+            ],
         )
     else:
-        normalized = counts_filled.with_columns(
-            pl.sum_horizontal(pl.all().exclude("trt")).alias("_row_total")
-        ).with_columns(
-            *[
-                pl.when(pl.col("_row_total") > 0)
-                .then(pl.col(column) / pl.col("_row_total"))
-                .otherwise(0.0)
-                .alias(column)
-                for column in ordered_value_columns
-            ]
-        ).drop("_row_total")
+        normalized = (
+            counts_filled.with_columns(
+                pl.sum_horizontal(pl.all().exclude("trt")).alias("_row_total")
+            )
+            .select(
+                "trt",
+                *[
+                    pl.when(pl.col("_row_total") > 0)
+                    .then(pl.col(column) / pl.col("_row_total"))
+                    .otherwise(0.0)
+                    .alias(column)
+                    for column in ordered_value_columns
+                ],
+                pl.col("_row_total"),
+            )
+            .drop("_row_total")
+        )
 
-    normalized_with_all = normalized.with_columns(
-        pl.sum_horizontal(pl.all().exclude("trt")).alias("All")
+    normalized_with_all = (
+        normalized.with_columns(
+            pl.sum_horizontal(pl.all().exclude("trt")).alias("All")
+        ).select(["trt", *ordered_value_columns, "All"])
     )
 
     column_totals = counts_filled.select(ordered_value_columns).sum()
-    normalized_column_totals = column_totals.with_columns(
-        *[(pl.col(column) / total_count).alias(column) for column in ordered_value_columns],
-        pl.lit(1.0).alias("All"),
-    ).with_columns(pl.lit("All").alias("trt"))
+    normalized_column_totals = (
+        column_totals.with_columns(
+            *[
+                (pl.col(column) / total_count).alias(column)
+                for column in ordered_value_columns
+            ],
+            pl.lit(1.0).alias("All"),
+        )
+        .with_columns(pl.lit("All").alias("trt"))
+        .select(["trt", *ordered_value_columns, "All"])
+    )
 
     probounds_crosstab = pl.concat(
         [normalized_with_all, normalized_column_totals], how="vertical"

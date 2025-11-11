@@ -1,0 +1,91 @@
+@font-face {
+  font-family: "Fraunces";
+  src: url("fonts/Fraunces9pt-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Fraunces", "Georgia", serif;
+  background: var(--pb-surface, #f6f5f2);
+  color: var(--pb-ink, #0f172a);
+  line-height: 1.7;
+}
+
+.navbar {
+  box-shadow: 0 8px 16px -12px rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.navbar-brand {
+  font-weight: 400;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+}
+
+.sidebar nav h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08rem;
+  color: var(--pb-muted, #475569);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: 0.04em;
+}
+
+.quarto-title-banner {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(14, 165, 233, 0.15));
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 18px;
+  padding: 2.5rem 3rem;
+}
+
+.callout {
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 20px 40px -35px rgba(15, 23, 42, 0.45);
+}
+
+.quarto-figure-center img {
+  border-radius: 16px;
+}
+
+.page-footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  margin-top: 4rem;
+}
+
+kbd {
+  background: rgba(59, 130, 246, 0.16);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: var(--pb-ink, #0f172a);
+  font-weight: 500;
+}
+
+pre code {
+  font-size: 0.92rem;
+  border-radius: 16px;
+}
+
+code {
+  font-size: 0.92rem;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.quarto-grid .card {
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 25px 50px -25px rgba(14, 116, 144, 0.3);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.quarto-grid .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 35px 60px -25px rgba(8, 47, 73, 0.35);
+}

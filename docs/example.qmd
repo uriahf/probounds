@@ -1,0 +1,143 @@
+---
+title: "Tutorial"
+description: "Recreate the personalized decision-making example from Pearl (2021)."
+format:
+  html:
+    toc: true
+    toc-depth: 2
+execute:
+  echo: true
+  warning: false
+---
+
+# Set up the working environment
+
+```{python}
+import numpy as np
+import polars as pl
+
+import probounds.probounds as pb
+```
+
+# Reproduce Pearl's example datasets
+
+This walkthrough recreates the probability-bounds workflow from Pearl and
+Mueller's discussion of personalized decision making, which combines
+observational and experimental evidence to personalize treatment
+decisions.[^pearl2021]
+The original article is available at
+[https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/](https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/).
+
+The blog post reports the counts of outcomes for men and women across the
+observational and experimental cohorts. We encode those counts directly to
+reconstruct the underlying individual-level data without any randomness.
+
+```{python}
+observational_counts = [
+    ("Female", 1, 1, 378),
+    ("Female", 1, 0, 1022),
+    ("Female", 0, 1, 420),
+    ("Female", 0, 0, 180),
+    ("Male", 1, 1, 980),
+    ("Male", 1, 0, 420),
+    ("Male", 0, 1, 420),
+    ("Male", 0, 0, 180),
+]
+
+experimental_counts = [
+    ("Female", 1, 1, 489),
+    ("Female", 1, 0, 511),
+    ("Female", 0, 1, 210),
+    ("Female", 0, 0, 790),
+    ("Male", 1, 1, 490),
+    ("Male", 1, 0, 510),
+    ("Male", 0, 1, 210),
+    ("Male", 0, 0, 790),
+]
+
+def expand_counts(records: list[tuple[str, int, int, int]]) -> pl.DataFrame:
+    expanded_columns: dict[str, list[np.ndarray]] = {"sex": [], "trt": [], "outcome": []}
+    for sex, trt, outcome, count in records:
+        expanded_columns["sex"].append(np.repeat(sex, count))
+        expanded_columns["trt"].append(np.repeat(trt, count))
+        expanded_columns["outcome"].append(np.repeat(outcome, count))
+
+    return pl.DataFrame(
+        {
+            name: np.concatenate(parts)
+            for name, parts in expanded_columns.items()
+        }
+    )
+
+observed = expand_counts(observational_counts)
+experiment = expand_counts(experimental_counts)
+
+observed.describe()
+experiment.describe()
+```
+
+# Build probability-bound crosstabs
+
+```{python}
+def format_probabilities(crosstab: pl.DataFrame) -> pl.DataFrame:
+    return crosstab.with_columns(
+        [pl.all().exclude("trt").round(4)]
+    )
+
+observed_crosstab = pb.create_probounds_crosstab(observed, datatype="observational")
+experimental_crosstab = pb.create_probounds_crosstab(experiment, datatype="experimental")
+
+format_probabilities(observed_crosstab)
+format_probabilities(experimental_crosstab)
+```
+
+Use `probounds_crosstab_feature` to produce crosstabs for each value of a feature.
+This is helpful when comparing groups such as demographic slices.
+
+```{python}
+observed_by_sex = pb.probounds_crosstab_feature(observed, "observational", "sex")
+experimental_by_sex = pb.probounds_crosstab_feature(experiment, "experimental", "sex")
+
+format_probabilities(observed_by_sex["Female"])
+```
+
+# Calculate probability bounds
+
+Once a crosstab is available, the dedicated helper functions compute the bounds
+for observational and experimental studies.
+
+```{python}
+_ = pb.calculate_bounds_observed_from_probounds_data(observed_crosstab)
+_ = pb.calculate_bounds_experimental_from_probounds_data(experimental_crosstab)
+```
+
+The same operations can be applied to each group returned by
+`probounds_crosstab_feature`.
+
+```{python}
+_ = pb.calculate_bounds_observed_from_probounds_data(observed_by_sex["Female"])
+_ = pb.calculate_bounds_observed_from_probounds_data(observed_by_sex["Male"])
+_ = pb.calculate_bounds_experimental_from_probounds_data(experimental_by_sex["Female"])
+_ = pb.calculate_bounds_experimental_from_probounds_data(experimental_by_sex["Male"])
+```
+
+# End-to-end helpers
+
+For convenience, the package exposes wrappers that accept raw data. These helpers
+cover observational, experimental, and combined datasets.
+
+```{python}
+pb.calculate_bounds_observed(observed)
+pb.calculate_bounds_observed_by_feature(observed, "sex")
+```
+
+```{python}
+pb.calculate_bounds_experimental(experiment)
+```
+
+```{python}
+pb.calculate_bounds_combined(observed, experiment)
+pb.calculate_bounds_combined_by_feature(observed, experiment, "sex")
+```
+
+[^pearl2021]: Judea Pearl and Scott Mueller, "Personalized Decision Making," *Causality Blog* (April 29, 2021). <https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/>.

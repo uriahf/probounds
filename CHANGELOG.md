@@ -61,7 +61,7 @@
 
 ### Build System
 
-- Add pytest and pytest-cov to poetry.lock and pyproject.toml
+- Add pytest and pytest-cov to the dependency manifests
   ([`b0ad126`](https://github.com/uriahf/probounds/commit/b0ad12639b5248c2f3e215bbaadcce046a74b681))
 
 - Add test for `create_probounds_crosstab()`

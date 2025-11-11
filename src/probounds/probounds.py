@@ -42,15 +42,15 @@ def create_probounds_crosstab(raw_data, datatype):
     elif datatype == "experimental":
         normalizeby = "index"
     else:
-        raise ValueError("Invalid datatype. Expected 'observed' or 'experimental'.")
+        raise ValueError("Invalid datatype. Expected 'observational' or 'experimental'.")
 
     if dataframe.is_empty():
         raise ValueError("raw_data must contain at least one record")
 
     counts = (
-        dataframe.groupby("trt")
-        .pivot("outcome")
-        .agg(pl.len())
+        dataframe.group_by(["trt", "outcome"])
+        .len()
+        .pivot(index="trt", columns="outcome", values="len", maintain_order=True)
         .sort("trt")
     )
 

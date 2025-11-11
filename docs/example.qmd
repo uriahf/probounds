@@ -31,12 +31,8 @@ rng = np.random.default_rng(seed=7)
 sample_size = 2000
 sex = np.array(["Female"] * sample_size + ["Male"] * sample_size)
 
-observational_treatment = np.concatenate(
-    [np.repeat(1, int(sample_size * 0.7)), np.repeat(0, int(sample_size * 0.3))]
-)
-experimental_treatment = np.concatenate(
-    [np.repeat(1, sample_size // 2), np.repeat(0, sample_size // 2)]
-)
+observational_treatment = rng.binomial(1, p=0.7, size=sample_size * 2)
+experimental_treatment = rng.binomial(1, p=0.5, size=sample_size * 2)
 
 observational_outcome = rng.binomial(1, p=0.45, size=sample_size * 2)
 experimental_outcome = rng.binomial(1, p=0.4, size=sample_size * 2)

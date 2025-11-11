@@ -1,33 +1,39 @@
-import probounds.probounds as pb
-import pandas as pd
 import numpy as np
+import polars as pl
 
-df_observed = pd.DataFrame(
+import probounds.probounds as pb
+
+
+df_observed = pl.DataFrame(
     {
-        "trt": np.concatenate([np.repeat(1, 1400), np.repeat(0, 600)] * 2),
-        "outcome": [1] * 378
-        + [0] * 1022
-        + [1] * 420
-        + [0] * 180
-        + [1] * 980
-        + [0] * 420
-        + [1] * 420
-        + [0] * 180,
+        "trt": np.concatenate([np.repeat(1, 1400), np.repeat(0, 600)] * 2).tolist(),
+        "outcome": (
+            [1] * 378
+            + [0] * 1022
+            + [1] * 420
+            + [0] * 180
+            + [1] * 980
+            + [0] * 420
+            + [1] * 420
+            + [0] * 180
+        ),
         "sex": ["Female"] * 2000 + ["Male"] * 2000,
     }
 )
 
-df_experimental = pd.DataFrame(
+df_experimental = pl.DataFrame(
     {
-        "trt": np.concatenate([np.repeat(1, 1000), np.repeat(0, 1000)] * 2),
-        "outcome": [1] * 489
-        + [0] * 511
-        + [1] * 210
-        + [0] * 790
-        + [1] * 490
-        + [0] * 510
-        + [1] * 210
-        + [0] * 790,
+        "trt": np.concatenate([np.repeat(1, 1000), np.repeat(0, 1000)] * 2).tolist(),
+        "outcome": (
+            [1] * 489
+            + [0] * 511
+            + [1] * 210
+            + [0] * 790
+            + [1] * 490
+            + [0] * 510
+            + [1] * 210
+            + [0] * 790
+        ),
         "sex": ["Female"] * 2000 + ["Male"] * 2000,
     }
 )
@@ -38,5 +44,7 @@ def test_create_probounds_crosstab():
     experimental_crosstab = pb.create_probounds_crosstab(
         df_experimental, "experimental"
     )
-    assert isinstance(observed_crosstab, pd.DataFrame)
-    assert isinstance(experimental_crosstab, pd.DataFrame)
+    assert isinstance(observed_crosstab, pl.DataFrame)
+    assert isinstance(experimental_crosstab, pl.DataFrame)
+    assert observed_crosstab.columns == ["trt", "0", "1", "All"]
+    assert experimental_crosstab.columns == ["trt", "0", "1", "All"]

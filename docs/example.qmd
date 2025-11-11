@@ -21,9 +21,10 @@ import probounds.probounds as pb
 
 # Reproduce Pearl's example datasets
 
-This walkthrough recreates the probability-bounds workflow from Pearl's
-discussion of personalized decision making, which combines observational
-and experimental evidence to personalize treatment decisions.[^pearl2021]
+This walkthrough recreates the probability-bounds workflow from Pearl and
+Mueller's discussion of personalized decision making, which combines
+observational and experimental evidence to personalize treatment
+decisions.[^pearl2021]
 The original article is available at
 [https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/](https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/).
 
@@ -139,4 +140,4 @@ pb.calculate_bounds_combined(observed, experiment)
 pb.calculate_bounds_combined_by_feature(observed, experiment, "sex")
 ```
 
-[^pearl2021]: Judea Pearl, "Personalized Decision Making," *Causality Blog* (April 29, 2021). <https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/>.
+[^pearl2021]: Judea Pearl and Scott Mueller, "Personalized Decision Making," *Causality Blog* (April 29, 2021). <https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/>.

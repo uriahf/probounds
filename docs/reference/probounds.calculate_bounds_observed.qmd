@@ -1,0 +1,19 @@
+# probounds.calculate_bounds_observed { #probounds.probounds.calculate_bounds_observed }
+
+```python
+probounds.calculate_bounds_observed(df_observed)
+```
+
+Calculate bounds directly from observational data.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name        | Type      | Description                                                       | Default    |
+|-------------|-----------|-------------------------------------------------------------------|------------|
+| df_observed | FrameLike | Observational dataset containing ``trt`` and ``outcome`` columns. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type               | Description                                                          |
+|--------|--------------------|----------------------------------------------------------------------|
+|        | dict\[str, float\] | Lower and upper bounds of the benefit for the observational dataset. |

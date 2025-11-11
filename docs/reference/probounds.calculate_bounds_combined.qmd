@@ -1,0 +1,23 @@
+# probounds.calculate_bounds_combined { #probounds.probounds.calculate_bounds_combined }
+
+```python
+probounds.calculate_bounds_combined(
+    raw_data_observational,
+    raw_data_experimental,
+)
+```
+
+Combine observational and experimental datasets to compute bounds.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name                   | Type      | Description                                                       | Default    |
+|------------------------|-----------|-------------------------------------------------------------------|------------|
+| raw_data_observational | FrameLike | Observational dataset containing ``trt`` and ``outcome`` columns. | _required_ |
+| raw_data_experimental  | FrameLike | Experimental dataset containing ``trt`` and ``outcome`` columns.  | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type               | Description                                  |
+|--------|--------------------|----------------------------------------------|
+|        | dict\[str, float\] | Combined lower and upper probability bounds. |

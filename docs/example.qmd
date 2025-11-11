@@ -1,0 +1,110 @@
+---
+title: "Tutorial"
+description: "Work through a complete probability-bounds workflow in Python."
+format:
+  html:
+    toc: true
+    toc-depth: 2
+execute:
+  echo: true
+  warning: false
+---
+
+# Set up the working environment
+
+```{python}
+import numpy as np
+import polars as pl
+
+import probounds.probounds as pb
+```
+
+# Prepare synthetic datasets
+
+The example below mirrors a common scenario in which observational and experimental
+studies are available for the same outcome. We generate two data frames that include
+`treatment` assignments (`trt`), binary outcomes, and a categorical feature.
+
+```{python}
+rng = np.random.default_rng(seed=7)
+
+sample_size = 2000
+sex = np.array(["Female"] * sample_size + ["Male"] * sample_size)
+
+observational_treatment = np.concatenate(
+    [np.repeat(1, int(sample_size * 0.7)), np.repeat(0, int(sample_size * 0.3))]
+)
+experimental_treatment = np.concatenate(
+    [np.repeat(1, sample_size // 2), np.repeat(0, sample_size // 2)]
+)
+
+observational_outcome = rng.binomial(1, p=0.45, size=sample_size * 2)
+experimental_outcome = rng.binomial(1, p=0.4, size=sample_size * 2)
+
+observed = pl.DataFrame(
+    {"trt": observational_treatment, "outcome": observational_outcome, "sex": sex}
+)
+experiment = pl.DataFrame(
+    {"trt": experimental_treatment, "outcome": experimental_outcome, "sex": sex}
+)
+
+observed.head()
+```
+
+# Build probability-bound crosstabs
+
+```{python}
+observed_crosstab = pb.create_probounds_crosstab(observed, datatype="observational")
+experimental_crosstab = pb.create_probounds_crosstab(experiment, datatype="experimental")
+
+observed_crosstab
+```
+
+Use `probounds_crosstab_feature` to produce crosstabs for each value of a feature.
+This is helpful when comparing groups such as demographic slices.
+
+```{python}
+observed_by_sex = pb.probounds_crosstab_feature(observed, "observational", "sex")
+experimental_by_sex = pb.probounds_crosstab_feature(experiment, "experimental", "sex")
+
+observed_by_sex["Female"]
+```
+
+# Calculate probability bounds
+
+Once a crosstab is available, the dedicated helper functions compute the bounds
+for observational and experimental studies.
+
+```{python}
+_ = pb.calculate_bounds_observed_from_probounds_data(observed_crosstab)
+_ = pb.calculate_bounds_experimental_from_probounds_data(experimental_crosstab)
+```
+
+The same operations can be applied to each group returned by
+`probounds_crosstab_feature`.
+
+```{python}
+_ = pb.calculate_bounds_observed_from_probounds_data(observed_by_sex["Female"])
+_ = pb.calculate_bounds_observed_from_probounds_data(observed_by_sex["Male"])
+_ = pb.calculate_bounds_experimental_from_probounds_data(experimental_by_sex["Female"])
+_ = pb.calculate_bounds_experimental_from_probounds_data(experimental_by_sex["Male"])
+```
+
+# End-to-end helpers
+
+For convenience, the package exposes wrappers that accept raw data. These helpers
+cover observational, experimental, and combined datasets.
+
+```{python}
+pb.calculate_bounds_observed(observed)
+pb.calculate_bounds_observed_by_feature(observed, "sex")
+```
+
+```{python}
+pb.calculate_bounds_experimental(experiment)
+```
+
+```{python}
+pb.calculate_bounds_combined(observed, experiment)
+pb.calculate_bounds_combined_by_feature(observed, experiment, "sex")
+```

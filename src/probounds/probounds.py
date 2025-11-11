@@ -1,20 +1,66 @@
 from __future__ import annotations
 
+from typing import Any, Dict, Hashable, Literal, Mapping, Sequence, TypeAlias
+
 import polars as pl
 
+FrameLike: TypeAlias = (
+    pl.DataFrame
+    | Mapping[str, Sequence[Any]]
+    | Sequence[Mapping[str, Any]]
+    | Sequence[Sequence[Any]]
+)
 
-def _ensure_polars_frame(raw_data) -> pl.DataFrame:
-    """Return ``raw_data`` as a Polars ``DataFrame``."""
+Datatype = Literal["observational", "experimental"]
+ProbabilityBounds = Dict[str, float]
+
+
+def _ensure_polars_frame(raw_data: FrameLike) -> pl.DataFrame:
+    """Return ``raw_data`` as a Polars ``DataFrame``.
+
+    Parameters
+    ----------
+    raw_data : FrameLike
+        Tabular data in any format accepted by :class:`polars.DataFrame`,
+        including mappings of columns or sequences of records.
+
+    Returns
+    -------
+    polars.DataFrame
+        The input data converted to a Polars data frame.
+    """
 
     if isinstance(raw_data, pl.DataFrame):
         return raw_data
-    return pl.DataFrame(raw_data)
+
+    return pl.DataFrame(raw_data)  # type: ignore[arg-type]
 
 
 def _extract_crosstab_value(
-    crosstab: pl.DataFrame, row_label, column_label
+    crosstab: pl.DataFrame, row_label: Hashable, column_label: Hashable
 ) -> float:
-    """Fetch a value from the probability bounds crosstab."""
+    """Fetch a value from the probability bounds crosstab.
+
+    Parameters
+    ----------
+    crosstab : polars.DataFrame
+        Crosstab returned by :func:`create_probounds_crosstab`.
+    row_label : Hashable
+        Label identifying the row in the ``trt`` column to extract.
+    column_label : Hashable
+        Name of the column whose value should be retrieved.
+
+    Returns
+    -------
+    float
+        The value located at the requested row and column.
+
+    Raises
+    ------
+    KeyError
+        Raised when the requested row or column is not present in the
+        ``crosstab``.
+    """
 
     row_key = str(row_label)
     column_key = str(column_label)
@@ -34,7 +80,32 @@ def _extract_crosstab_value(
     return float(series.item())
 
 
-def create_probounds_crosstab(raw_data, datatype):
+def create_probounds_crosstab(raw_data: FrameLike, datatype: Datatype) -> pl.DataFrame:
+    """Generate a normalized probability bounds crosstab.
+
+    Parameters
+    ----------
+    raw_data : FrameLike
+        Observational or experimental data containing ``trt`` and
+        ``outcome`` columns.
+    datatype : {"observational", "experimental"}
+        The type of study represented by ``raw_data``. Observational data are
+        normalized against the total number of records, while experimental data
+        are normalized within each treatment group.
+
+    Returns
+    -------
+    polars.DataFrame
+        Crosstab with normalized outcome probabilities and an ``All`` summary
+        column.
+
+    Raises
+    ------
+    ValueError
+        Raised when ``datatype`` is not supported or when ``raw_data`` does not
+        contain any records.
+    """
+
     dataframe = _ensure_polars_frame(raw_data)
 
     if datatype == "observational":
@@ -54,7 +125,9 @@ def create_probounds_crosstab(raw_data, datatype):
         .sort("trt")
     )
 
-    counts = counts.rename({column: str(column) for column in counts.columns if column != "trt"})
+    counts = counts.rename(
+        {column: str(column) for column in counts.columns if column != "trt"}
+    )
 
     expected_outcomes = ["0", "1"]
     for outcome in expected_outcomes:
@@ -133,19 +206,55 @@ def create_probounds_crosstab(raw_data, datatype):
     return probounds_crosstab.select(ordered_columns)
 
 
-def probounds_crosstab_feature(raw_data, datatype, feature):
+def probounds_crosstab_feature(
+    raw_data: FrameLike, datatype: Datatype, feature: str
+) -> Dict[Hashable, pl.DataFrame]:
+    """Build crosstabs for every category of ``feature``.
+
+    Parameters
+    ----------
+    raw_data : FrameLike
+        Input dataset that includes the ``feature`` column alongside ``trt``
+        and ``outcome``.
+    datatype : {"observational", "experimental"}
+        The type of study represented by ``raw_data``.
+    feature : str
+        Column used to split the dataset prior to computing crosstabs.
+
+    Returns
+    -------
+    dict[Hashable, polars.DataFrame]
+        Mapping from each feature value to its probability bounds crosstab.
+    """
+
     dataframe = _ensure_polars_frame(raw_data)
 
-    results = {}
+    results: Dict[Hashable, pl.DataFrame] = {}
     for group in dataframe.partition_by(feature, maintain_order=True):
         value = group[feature][0]
         results[value] = create_probounds_crosstab(group, datatype)
     return results
 
 
-def calculate_bounds_observed_from_probounds_data(probounds_data):
+def calculate_bounds_observed_from_probounds_data(
+    probounds_data: pl.DataFrame,
+) -> ProbabilityBounds:
+    """Compute bounds for observational data from a crosstab.
+
+    Parameters
+    ----------
+    probounds_data : polars.DataFrame
+        Crosstab generated by :func:`create_probounds_crosstab` for
+        observational data.
+
+    Returns
+    -------
+    dict[str, float]
+        Lower and upper bounds of the benefit.
+    """
+
     bounds_dict = {
-        "lower_bound": 0,
+        "lower_bound": 0.0,
         "upper_bound": _extract_crosstab_value(probounds_data, 1, 1)
         + _extract_crosstab_value(probounds_data, 0, 0),
     }
@@ -155,10 +264,26 @@ def calculate_bounds_observed_from_probounds_data(probounds_data):
     return bounds_dict
 
 
-def calculate_bounds_experimental_from_probounds_data(probounds_data):
+def calculate_bounds_experimental_from_probounds_data(
+    probounds_data: pl.DataFrame,
+) -> ProbabilityBounds:
+    """Compute bounds for experimental data from a crosstab.
+
+    Parameters
+    ----------
+    probounds_data : polars.DataFrame
+        Crosstab generated by :func:`create_probounds_crosstab` for
+        experimental data.
+
+    Returns
+    -------
+    dict[str, float]
+        Lower and upper bounds of the benefit.
+    """
+
     bounds_dict = {
         "lower_bound": max(
-            0,
+            0.0,
             _extract_crosstab_value(probounds_data, 1, 1)
             - _extract_crosstab_value(probounds_data, 0, 1),
         ),
@@ -173,7 +298,24 @@ def calculate_bounds_experimental_from_probounds_data(probounds_data):
     return bounds_dict
 
 
-def calculate_bounds_combined(raw_data_observational, raw_data_experimental):
+def calculate_bounds_combined(
+    raw_data_observational: FrameLike, raw_data_experimental: FrameLike
+) -> ProbabilityBounds:
+    """Combine observational and experimental datasets to compute bounds.
+
+    Parameters
+    ----------
+    raw_data_observational : FrameLike
+        Observational dataset containing ``trt`` and ``outcome`` columns.
+    raw_data_experimental : FrameLike
+        Experimental dataset containing ``trt`` and ``outcome`` columns.
+
+    Returns
+    -------
+    dict[str, float]
+        Combined lower and upper probability bounds.
+    """
+
     probounds_crosstab_observed = create_probounds_crosstab(
         raw_data_observational, "observational"
     )
@@ -184,7 +326,7 @@ def calculate_bounds_combined(raw_data_observational, raw_data_experimental):
     prevalence = _extract_crosstab_value(probounds_crosstab_observed, "All", 1)
 
     lower_bound = max(
-        0,
+        0.0,
         prevalence - _extract_crosstab_value(probounds_crosstab_experimental, 0, 1),
         _extract_crosstab_value(probounds_crosstab_experimental, 1, 1) - prevalence,
         _extract_crosstab_value(probounds_crosstab_experimental, 1, 1)
@@ -201,16 +343,38 @@ def calculate_bounds_combined(raw_data_observational, raw_data_experimental):
         + _extract_crosstab_value(probounds_crosstab_observed, 0, 0),
     )
 
-    bounds_dict = {"lower_bound": lower_bound, "upper_bound": upper_bound}
+    bounds_dict: ProbabilityBounds = {
+        "lower_bound": lower_bound,
+        "upper_bound": upper_bound,
+    }
 
     return bounds_dict
 
 
-def calculate_bounds_combined_by_feature(df_observed, df_experimental, feature):
+def calculate_bounds_combined_by_feature(
+    df_observed: FrameLike, df_experimental: FrameLike, feature: str
+) -> Dict[Hashable, ProbabilityBounds]:
+    """Compute combined bounds for each category of ``feature``.
+
+    Parameters
+    ----------
+    df_observed : FrameLike
+        Observational dataset containing the ``feature`` column.
+    df_experimental : FrameLike
+        Experimental dataset containing the ``feature`` column.
+    feature : str
+        Column on which to partition the data prior to computing bounds.
+
+    Returns
+    -------
+    dict[Hashable, dict[str, float]]
+        Mapping of feature value to the combined probability bounds.
+    """
+
     df_observed_polars = _ensure_polars_frame(df_observed)
     df_experimental_polars = _ensure_polars_frame(df_experimental)
 
-    bounds_combined_by_feature = {}
+    bounds_combined_by_feature: Dict[Hashable, ProbabilityBounds] = {}
     unique_values = df_observed_polars.get_column(feature).unique().to_list()
 
     for value in unique_values:
@@ -225,14 +389,40 @@ def calculate_bounds_combined_by_feature(df_observed, df_experimental, feature):
     return bounds_combined_by_feature
 
 
-def calculate_bounds_observed(df_observed):
+def calculate_bounds_observed(df_observed: FrameLike) -> ProbabilityBounds:
+    """Calculate bounds directly from observational data.
+
+    Parameters
+    ----------
+    df_observed : FrameLike
+        Observational dataset containing ``trt`` and ``outcome`` columns.
+
+    Returns
+    -------
+    dict[str, float]
+        Lower and upper bounds of the benefit for the observational dataset.
+    """
+
     probounds_crosstab_observed = create_probounds_crosstab(
         df_observed, "observational"
     )
     return calculate_bounds_observed_from_probounds_data(probounds_crosstab_observed)
 
 
-def calculate_bounds_experimental(df_experimental):
+def calculate_bounds_experimental(df_experimental: FrameLike) -> ProbabilityBounds:
+    """Calculate bounds directly from experimental data.
+
+    Parameters
+    ----------
+    df_experimental : FrameLike
+        Experimental dataset containing ``trt`` and ``outcome`` columns.
+
+    Returns
+    -------
+    dict[str, float]
+        Lower and upper bounds of the benefit for the experimental dataset.
+    """
+
     probounds_crosstab_experimental = create_probounds_crosstab(
         df_experimental, "experimental"
     )
@@ -241,10 +431,27 @@ def calculate_bounds_experimental(df_experimental):
     )
 
 
-def calculate_bounds_observed_by_feature(df_observed, feature):
+def calculate_bounds_observed_by_feature(
+    df_observed: FrameLike, feature: str
+) -> Dict[Hashable, ProbabilityBounds]:
+    """Calculate observational bounds for each category of ``feature``.
+
+    Parameters
+    ----------
+    df_observed : FrameLike
+        Observational dataset containing the ``feature`` column.
+    feature : str
+        Column on which to partition the data prior to computing bounds.
+
+    Returns
+    -------
+    dict[Hashable, dict[str, float]]
+        Mapping from each feature value to its observational bounds.
+    """
+
     dataframe = _ensure_polars_frame(df_observed)
 
-    bounds_combined_by_feature = {}
+    bounds_combined_by_feature: Dict[Hashable, ProbabilityBounds] = {}
     unique_values = dataframe.get_column(feature).unique().to_list()
 
     for value in unique_values:

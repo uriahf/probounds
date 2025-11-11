@@ -4,3 +4,23 @@
 probounds.create_probounds_crosstab(raw_data, datatype)
 ```
 
+Generate a normalized probability bounds crosstab.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name     | Type                                  | Description                                                                                                                                                                               | Default           |
+|----------|---------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
+| raw_data | FrameLike                             | Observational or experimental data containing ``trt`` and ``outcome`` columns.                                                                                                            | _required_        |
+| datatype | (\'observational\', \'experimental\') | The type of study represented by ``raw_data``. Observational data are normalized against the total number of records, while experimental data are normalized within each treatment group. | `"observational"` |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type             | Description                                                                   |
+|--------|------------------|-------------------------------------------------------------------------------|
+|        | polars.DataFrame | Crosstab with normalized outcome probabilities and an ``All`` summary column. |
+
+## Raises {.doc-section .doc-section-raises}
+
+| Name   | Type       | Description                                                                                  |
+|--------|------------|----------------------------------------------------------------------------------------------|
+|        | ValueError | Raised when ``datatype`` is not supported or when ``raw_data`` does not contain any records. |

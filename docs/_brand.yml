@@ -1,19 +1,49 @@
+meta:
+  name:
+    short: ProBounds
+    full: ProBounds Probability Bounds Toolkit
+  link:
+    repo: https://github.com/uriahf/probounds
+
 color:
   palette:
-    # Neutral-gray background with deep blue and accent orange
-    dark-grey: "#1c1c1c"
-    soft-blue: "#ddeaf1"
-    accent-orange: "#ff8800"
-    off-white: "#f9f9f9"
-  background: off-white
-  foreground: dark-grey
-  primary: accent-orange
+    midnight: "#0F172A"
+    surf: "#22D3EE"
+    tidepool: "#2563EB"
+    coral: "#F97316"
+    sand: "#F8FAFC"
+    shell: "#E2E8F0"
+  foreground: midnight
+  background: sand
+  primary: tidepool
+  secondary: coral
+  info: surf
+  success: "#0EA5E9"
+  warning: "#FACC15"
+  danger: "#EF4444"
+  light: sand
+  dark: midnight
 
 typography:
   fonts:
-    - family: Commissioner
-      source: google
     - family: Fraunces
-      source: google
-  base: Commissioner
-  headings: Fraunces
+      source: file
+      files:
+        - path: assets/fonts/Fraunces9pt-Light.woff2
+          weight: 300
+          style: normal
+      # Download additional Fraunces weights from https://github.com/undercasetype/Fraunces
+      # and place them in docs/assets/fonts/ alongside this file if broader styling is needed.
+  base:
+    family: Fraunces
+    weight: 300
+    size: 1.05rem
+    line-height: 1.7
+  headings:
+    family: Fraunces
+    weight: 400
+    line-height: 1.2
+    transform: none
+  monospace:
+    family: JetBrains Mono, SFMono-Regular, Menlo, monospace
+    size: 0.92rem

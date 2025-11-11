@@ -1,29 +1,15 @@
 from __future__ import annotations
 
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    Hashable,
-    Literal,
-    Mapping,
-    Sequence,
-    TypeAlias,
-)
+from typing import Any, Dict, Hashable, Literal, Mapping, Sequence, TypeAlias
 
 import polars as pl
 
-if TYPE_CHECKING:
-    import pandas as pd
-    FrameLike: TypeAlias = (
-        pl.DataFrame
-        | pd.DataFrame
-        | Mapping[str, Sequence[Any]]
-        | Sequence[Mapping[str, Any]]
-        | Sequence[Sequence[Any]]
-    )
-else:
-    FrameLike: TypeAlias = Any
+FrameLike: TypeAlias = (
+    pl.DataFrame
+    | Mapping[str, Sequence[Any]]
+    | Sequence[Mapping[str, Any]]
+    | Sequence[Sequence[Any]]
+)
 
 Datatype = Literal["observational", "experimental"]
 ProbabilityBounds = Dict[str, float]
@@ -36,8 +22,7 @@ def _ensure_polars_frame(raw_data: FrameLike) -> pl.DataFrame:
     ----------
     raw_data : FrameLike
         Tabular data in any format accepted by :class:`polars.DataFrame`,
-        including Pandas data frames, mappings of columns, or sequences of
-        records.
+        including mappings of columns or sequences of records.
 
     Returns
     -------

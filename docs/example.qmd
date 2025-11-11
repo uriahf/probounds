@@ -14,7 +14,7 @@ execute:
 
 ```{python}
 import numpy as np
-import pandas as pd
+import polars as pl
 
 import probounds.probounds as pb
 ```
@@ -41,10 +41,10 @@ experimental_treatment = np.concatenate(
 observational_outcome = rng.binomial(1, p=0.45, size=sample_size * 2)
 experimental_outcome = rng.binomial(1, p=0.4, size=sample_size * 2)
 
-observed = pd.DataFrame(
+observed = pl.DataFrame(
     {"trt": observational_treatment, "outcome": observational_outcome, "sex": sex}
 )
-experiment = pd.DataFrame(
+experiment = pl.DataFrame(
     {"trt": experimental_treatment, "outcome": experimental_outcome, "sex": sex}
 )
 

@@ -1,120 +1,49 @@
+meta:
+  name:
+    short: ProBounds
+    full: ProBounds Probability Bounds Toolkit
+  link:
+    repo: https://github.com/uriahf/probounds
+
 color:
   palette:
-    twilight: "#0f172a"
-    foam: "#f8fafc"
-    tide: "#22d3ee"
-    reef: "#2563eb"
-    coral: "#f97316"
-    sand: "#ede9fe"
-  background: foam
-  foreground: twilight
-  primary: reef
+    midnight: "#0F172A"
+    surf: "#22D3EE"
+    tidepool: "#2563EB"
+    coral: "#F97316"
+    sand: "#F8FAFC"
+    shell: "#E2E8F0"
+  foreground: midnight
+  background: sand
+  primary: tidepool
   secondary: coral
-  info: tide
-  success: "#0ea5e9"
-  warning: "#facc15"
-  danger: "#ef4444"
-  muted: "#64748b"
-  border: "#cbd5f5"
-
-shadow:
-  dropdown: "0 16px 40px -28px rgba(15, 23, 42, 0.55)"
-  floating: "0 30px 60px -40px rgba(8, 47, 73, 0.45)"
-  card: "0 24px 48px -32px rgba(30, 64, 175, 0.45)"
-
-radius:
-  small: 10px
-  medium: 16px
-  large: 22px
-
-border:
-  width: 1.5px
-
-spacing:
-  section-y: 4.8rem
-
-components:
-  navbar:
-    background: rgba(248, 250, 252, 0.82)
-    border: 1px solid rgba(203, 213, 245, 0.4)
-    text: twilight
-    hover: reef
-    active: coral
-  footer:
-    background: transparent
-    text: muted
-    border: 1px solid rgba(203, 213, 245, 0.35)
-  callout:
-    background: rgba(34, 211, 238, 0.1)
-    border: 1px solid rgba(203, 213, 245, 0.6)
-
-buttons:
-  primary:
-    background: reef
-    text: foam
-    hover: coral
-  secondary:
-    background: transparent
-    border: 1px solid rgba(37, 99, 235, 0.45)
-    text: twilight
-    hover: reef
-
-code:
-  background: rgba(15, 23, 42, 0.04)
-  text: twilight
-
-links:
-  color: reef
-  hover: coral
-
-charts:
-  palette: ["#22d3ee", "#2563eb", "#f97316", "#fbbf24", "#0ea5e9", "#818cf8"]
-
-cards:
-  background: foam
-  text: twilight
-  border: 1px solid rgba(203, 213, 245, 0.35)
-  shadow: "0 28px 50px -36px rgba(15, 23, 42, 0.55)"
-
-sidebar:
-  background: rgba(248, 250, 252, 0.9)
-  text: twilight
-  border: 1px solid rgba(203, 213, 245, 0.4)
-
-hero:
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(34, 211, 238, 0.18))
-  text: twilight
-  border: 1px solid rgba(203, 213, 245, 0.4)
-
-blockquote:
-  background: rgba(37, 99, 235, 0.08)
-  border: 1px solid rgba(203, 213, 245, 0.6)
-
-progress:
-  background: rgba(203, 213, 245, 0.35)
-  value: reef
-
-list:
-  marker: coral
-
-meta:
-  text: muted
+  info: surf
+  success: "#0EA5E9"
+  warning: "#FACC15"
+  danger: "#EF4444"
+  light: sand
+  dark: midnight
 
 typography:
   fonts:
-    - family: "Fraunces"
-      source: local
-      path: assets/fonts/Fraunces9pt-Light.woff2
-      weight: 300
+    - family: Fraunces
+      source: file
+      files:
+        - path: assets/fonts/Fraunces9pt-Light.woff2
+          weight: 300
+          style: normal
+      # Download additional Fraunces weights from https://github.com/undercasetype/Fraunces
+      # and place them in docs/assets/fonts/ alongside this file if broader styling is needed.
   base:
-    family: "Fraunces"
+    family: Fraunces
     weight: 300
-    line-height: 1.7
     size: 1.05rem
+    line-height: 1.7
   headings:
-    family: "Fraunces"
+    family: Fraunces
     weight: 400
+    line-height: 1.2
     transform: none
-    letter-spacing: 0.05em
   monospace:
-    family: "JetBrains Mono", "SFMono-Regular", "Menlo", monospace
+    family: JetBrains Mono, SFMono-Regular, Menlo, monospace
+    size: 0.92rem

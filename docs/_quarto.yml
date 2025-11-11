@@ -4,36 +4,74 @@ project:
   
 website:
   title: "probounds"
+  description: "Documentation for constructing probability bounds with Polars."
   site-url: https://uriahf.github.io/probounds/
   repo-url: https://github.com/uriahf/probounds/
-  repo-actions: [edit, issue]
+  page-navigation: true
   navbar:
+    logo: "probounds"
     left:
       - href: index.md
-        text: Home
-      - href: example.ipynb
-        text: Example
-      - href: changelog.md
-        text: Changelog
-      - href: contributing.md
-        text: Contributing
-      - href: conduct.md
-        text: Code of Conduct
+        text: Overview
+      - href: example.qmd
+        text: Tutorial
       - href: reference/index.qmd
         text: API Reference
+      - text: Project notes
+        menu:
+          - text: Changelog
+            href: changelog.md
+          - text: Contributing
+            href: contributing.md
+          - text: Code of Conduct
+            href: conduct.md
+    right:
+      - icon: github
+        href: https://github.com/uriahf/probounds
+        aria-label: GitHub repository
+      - text: Issues
+        href: https://github.com/uriahf/probounds/issues
+  page-footer:
+    left: "© 2024 probounds"
+    right:
+      - text: MIT License
+        href: https://github.com/uriahf/probounds/blob/main/LICENSE
 
 quartodoc:
   style: pkgdown
   dir: reference
   package: probounds
   sections:
-    - title: Some functions
-      desc: Functions to inspect docstrings.
+    - title: Crosstab generation
+      desc: Create normalized crosstabs from observational and experimental data.
       contents:
         - probounds.create_probounds_crosstab
+        - probounds.probounds_crosstab_feature
+    - title: Bounds from prepared crosstabs
+      desc: Use previously computed crosstabs to derive benefit bounds.
+      contents:
+        - probounds.calculate_bounds_observed_from_probounds_data
+        - probounds.calculate_bounds_experimental_from_probounds_data
+    - title: Direct bounds from raw data
+      desc: Convenience wrappers that operate on raw datasets.
+      contents:
+        - probounds.calculate_bounds_observed
+        - probounds.calculate_bounds_experimental
+        - probounds.calculate_bounds_combined
+    - title: Feature-level analyses
+      desc: Evaluate probability bounds for each category of a feature.
+      contents:
+        - probounds.calculate_bounds_observed_by_feature
+        - probounds.calculate_bounds_combined_by_feature
 
 format:
   html:
+    theme:
+      - litera
+      - _brand.yml
+    css: assets/styles.css
     toc: true
     toc-depth: 3
-    number-sections: true
+    number-sections: false
+    smooth-scroll: true
+    page-layout: full

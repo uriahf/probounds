@@ -1,0 +1,20 @@
+# probounds.calculate_bounds_observed_by_feature { #probounds.probounds.calculate_bounds_observed_by_feature }
+
+```python
+probounds.calculate_bounds_observed_by_feature(df_observed, feature)
+```
+
+Calculate observational bounds for each category of ``feature``.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name        | Type      | Description                                                      | Default    |
+|-------------|-----------|------------------------------------------------------------------|------------|
+| df_observed | FrameLike | Observational dataset containing the ``feature`` column.         | _required_ |
+| feature     | str       | Column on which to partition the data prior to computing bounds. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                                 | Description                                                  |
+|--------|--------------------------------------|--------------------------------------------------------------|
+|        | dict\[Hashable, dict\[str, float\]\] | Mapping from each feature value to its observational bounds. |

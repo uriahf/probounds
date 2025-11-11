@@ -1,6 +1,6 @@
 ---
 title: "Tutorial"
-description: "Work through a complete probability-bounds workflow in Python."
+description: "Recreate the personalized decision-making example from Pearl (2021)."
 format:
   html:
     toc: true
@@ -19,41 +19,75 @@ import polars as pl
 import probounds.probounds as pb
 ```
 
-# Prepare synthetic datasets
+# Reproduce Pearl's example datasets
 
-The example below mirrors a common scenario in which observational and experimental
-studies are available for the same outcome. We generate two data frames that include
-`treatment` assignments (`trt`), binary outcomes, and a categorical feature.
+This walkthrough recreates the probability-bounds workflow from Pearl's
+discussion of personalized decision making, which combines observational
+and experimental evidence to personalize treatment decisions.[^pearl2021]
+The original article is available at
+[https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/](https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/).
+
+The blog post reports the counts of outcomes for men and women across the
+observational and experimental cohorts. We encode those counts directly to
+reconstruct the underlying individual-level data without any randomness.
 
 ```{python}
-rng = np.random.default_rng(seed=7)
+observational_counts = [
+    ("Female", 1, 1, 378),
+    ("Female", 1, 0, 1022),
+    ("Female", 0, 1, 420),
+    ("Female", 0, 0, 180),
+    ("Male", 1, 1, 980),
+    ("Male", 1, 0, 420),
+    ("Male", 0, 1, 420),
+    ("Male", 0, 0, 180),
+]
 
-sample_size = 2000
-sex = np.array(["Female"] * sample_size + ["Male"] * sample_size)
+experimental_counts = [
+    ("Female", 1, 1, 489),
+    ("Female", 1, 0, 511),
+    ("Female", 0, 1, 210),
+    ("Female", 0, 0, 790),
+    ("Male", 1, 1, 490),
+    ("Male", 1, 0, 510),
+    ("Male", 0, 1, 210),
+    ("Male", 0, 0, 790),
+]
 
-observational_treatment = rng.binomial(1, p=0.7, size=sample_size * 2)
-experimental_treatment = rng.binomial(1, p=0.5, size=sample_size * 2)
+def expand_counts(records: list[tuple[str, int, int, int]]) -> pl.DataFrame:
+    expanded_columns: dict[str, list[np.ndarray]] = {"sex": [], "trt": [], "outcome": []}
+    for sex, trt, outcome, count in records:
+        expanded_columns["sex"].append(np.repeat(sex, count))
+        expanded_columns["trt"].append(np.repeat(trt, count))
+        expanded_columns["outcome"].append(np.repeat(outcome, count))
 
-observational_outcome = rng.binomial(1, p=0.45, size=sample_size * 2)
-experimental_outcome = rng.binomial(1, p=0.4, size=sample_size * 2)
+    return pl.DataFrame(
+        {
+            name: np.concatenate(parts)
+            for name, parts in expanded_columns.items()
+        }
+    )
 
-observed = pl.DataFrame(
-    {"trt": observational_treatment, "outcome": observational_outcome, "sex": sex}
-)
-experiment = pl.DataFrame(
-    {"trt": experimental_treatment, "outcome": experimental_outcome, "sex": sex}
-)
+observed = expand_counts(observational_counts)
+experiment = expand_counts(experimental_counts)
 
-observed.head()
+observed.describe()
+experiment.describe()
 ```
 
 # Build probability-bound crosstabs
 
 ```{python}
+def format_probabilities(crosstab: pl.DataFrame) -> pl.DataFrame:
+    return crosstab.with_columns(
+        [pl.all().exclude("trt").round(4)]
+    )
+
 observed_crosstab = pb.create_probounds_crosstab(observed, datatype="observational")
 experimental_crosstab = pb.create_probounds_crosstab(experiment, datatype="experimental")
 
-observed_crosstab
+format_probabilities(observed_crosstab)
+format_probabilities(experimental_crosstab)
 ```
 
 Use `probounds_crosstab_feature` to produce crosstabs for each value of a feature.
@@ -63,7 +97,7 @@ This is helpful when comparing groups such as demographic slices.
 observed_by_sex = pb.probounds_crosstab_feature(observed, "observational", "sex")
 experimental_by_sex = pb.probounds_crosstab_feature(experiment, "experimental", "sex")
 
-observed_by_sex["Female"]
+format_probabilities(observed_by_sex["Female"])
 ```
 
 # Calculate probability bounds
@@ -104,3 +138,5 @@ pb.calculate_bounds_experimental(experiment)
 pb.calculate_bounds_combined(observed, experiment)
 pb.calculate_bounds_combined_by_feature(observed, experiment, "sex")
 ```
+
+[^pearl2021]: Judea Pearl, "Personalized Decision Making," *Causality Blog* (April 29, 2021). <https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/>.

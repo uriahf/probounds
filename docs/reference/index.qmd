@@ -1,9 +1,38 @@
 # Function reference {.doc .doc-index}
 
-## Some functions
+## Crosstab generation
 
-Functions to inspect docstrings.
+Create normalized crosstabs from observational and experimental data.
 
 | | |
 | --- | --- |
-| [probounds.create_probounds_crosstab](probounds.create_probounds_crosstab.qmd#probounds.probounds.create_probounds_crosstab) |  |
+| [probounds.create_probounds_crosstab](probounds.create_probounds_crosstab.qmd#probounds.probounds.create_probounds_crosstab) | Generate a normalized probability bounds crosstab. |
+| [probounds.probounds_crosstab_feature](probounds.probounds_crosstab_feature.qmd#probounds.probounds.probounds_crosstab_feature) | Build crosstabs for every category of ``feature``. |
+
+## Bounds from prepared crosstabs
+
+Use previously computed crosstabs to derive benefit bounds.
+
+| | |
+| --- | --- |
+| [probounds.calculate_bounds_observed_from_probounds_data](probounds.calculate_bounds_observed_from_probounds_data.qmd#probounds.probounds.calculate_bounds_observed_from_probounds_data) | Compute bounds for observational data from a crosstab. |
+| [probounds.calculate_bounds_experimental_from_probounds_data](probounds.calculate_bounds_experimental_from_probounds_data.qmd#probounds.probounds.calculate_bounds_experimental_from_probounds_data) | Compute bounds for experimental data from a crosstab. |
+
+## Direct bounds from raw data
+
+Convenience wrappers that operate on raw datasets.
+
+| | |
+| --- | --- |
+| [probounds.calculate_bounds_observed](probounds.calculate_bounds_observed.qmd#probounds.probounds.calculate_bounds_observed) | Calculate bounds directly from observational data. |
+| [probounds.calculate_bounds_experimental](probounds.calculate_bounds_experimental.qmd#probounds.probounds.calculate_bounds_experimental) | Calculate bounds directly from experimental data. |
+| [probounds.calculate_bounds_combined](probounds.calculate_bounds_combined.qmd#probounds.probounds.calculate_bounds_combined) | Combine observational and experimental datasets to compute bounds. |
+
+## Feature-level analyses
+
+Evaluate probability bounds for each category of a feature.
+
+| | |
+| --- | --- |
+| [probounds.calculate_bounds_observed_by_feature](probounds.calculate_bounds_observed_by_feature.qmd#probounds.probounds.calculate_bounds_observed_by_feature) | Calculate observational bounds for each category of ``feature``. |
+| [probounds.calculate_bounds_combined_by_feature](probounds.calculate_bounds_combined_by_feature.qmd#probounds.probounds.calculate_bounds_combined_by_feature) | Compute combined bounds for each category of ``feature``. |

@@ -1,0 +1,21 @@
+# probounds.probounds_crosstab_feature { #probounds.probounds.probounds_crosstab_feature }
+
+```python
+probounds.probounds_crosstab_feature(raw_data, datatype, feature)
+```
+
+Build crosstabs for every category of ``feature``.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name     | Type                                  | Description                                                                           | Default           |
+|----------|---------------------------------------|---------------------------------------------------------------------------------------|-------------------|
+| raw_data | FrameLike                             | Input dataset that includes the ``feature`` column alongside ``trt`` and ``outcome``. | _required_        |
+| datatype | (\'observational\', \'experimental\') | The type of study represented by ``raw_data``.                                        | `"observational"` |
+| feature  | str                                   | Column used to split the dataset prior to computing crosstabs.                        | _required_        |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                               | Description                                                         |
+|--------|------------------------------------|---------------------------------------------------------------------|
+|        | dict\[Hashable, polars.DataFrame\] | Mapping from each feature value to its probability bounds crosstab. |

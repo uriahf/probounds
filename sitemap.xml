@@ -2,34 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://uriahf.github.io/probounds/reference/probounds.create_probounds_crosstab.html</loc>
-    <lastmod>2025-06-16T14:38:17.353Z</lastmod>
+    <lastmod>2025-11-14T17:03:28.421Z</lastmod>
   </url>
   <url>
-    <loc>https://uriahf.github.io/probounds/reference/index.html</loc>
-    <lastmod>2025-06-16T14:57:05.030Z</lastmod>
+    <loc>https://uriahf.github.io/probounds/reference/probounds.calculate_bounds_combined.html</loc>
+    <lastmod>2025-11-14T17:03:28.421Z</lastmod>
   </url>
   <url>
-    <loc>https://uriahf.github.io/probounds/contributing.html</loc>
-    <lastmod>2025-06-12T14:57:21.273Z</lastmod>
+    <loc>https://uriahf.github.io/probounds/reference/probounds.calculate_bounds_experimental_from_probounds_data.html</loc>
+    <lastmod>2025-11-14T17:03:28.421Z</lastmod>
   </url>
   <url>
-    <loc>https://uriahf.github.io/probounds/changelog.html</loc>
-    <lastmod>2025-06-12T14:57:21.265Z</lastmod>
+    <loc>https://uriahf.github.io/probounds/reference/probounds.calculate_bounds_observed_by_feature.html</loc>
+    <lastmod>2025-11-14T17:03:28.421Z</lastmod>
   </url>
   <url>
-    <loc>https://uriahf.github.io/probounds/conduct.html</loc>
-    <lastmod>2025-06-12T14:57:21.272Z</lastmod>
+    <loc>https://uriahf.github.io/probounds/reference/probounds.probounds_crosstab_feature.html</loc>
+    <lastmod>2025-11-14T17:03:28.425Z</lastmod>
+  </url>
+  <url>
+    <loc>https://uriahf.github.io/probounds/reference/probounds.calculate_bounds_observed.html</loc>
+    <lastmod>2025-11-14T17:03:28.421Z</lastmod>
   </url>
   <url>
     <loc>https://uriahf.github.io/probounds/example.html</loc>
-    <lastmod>2025-06-12T13:55:41.449Z</lastmod>
+    <lastmod>2025-11-14T17:03:28.403Z</lastmod>
+  </url>
+  <url>
+    <loc>https://uriahf.github.io/probounds/reference/index.html</loc>
+    <lastmod>2025-11-14T17:03:28.414Z</lastmod>
   </url>
   <url>
     <loc>https://uriahf.github.io/probounds/reference/get_object.html</loc>
-    <lastmod>2025-06-16T14:26:24.723Z</lastmod>
+    <lastmod>2025-11-14T17:03:28.410Z</lastmod>
+  </url>
+  <url>
+    <loc>https://uriahf.github.io/probounds/reference/probounds.calculate_bounds_observed_from_probounds_data.html</loc>
+    <lastmod>2025-11-14T17:03:28.421Z</lastmod>
+  </url>
+  <url>
+    <loc>https://uriahf.github.io/probounds/reference/probounds.calculate_bounds_experimental.html</loc>
+    <lastmod>2025-11-14T17:03:28.421Z</lastmod>
   </url>
   <url>
     <loc>https://uriahf.github.io/probounds/reference/preview.html</loc>
-    <lastmod>2025-06-16T14:26:24.723Z</lastmod>
+    <lastmod>2025-11-14T17:03:28.417Z</lastmod>
+  </url>
+  <url>
+    <loc>https://uriahf.github.io/probounds/reference/probounds.calculate_bounds_combined_by_feature.html</loc>
+    <lastmod>2025-11-14T17:03:28.421Z</lastmod>
   </url>
 </urlset>

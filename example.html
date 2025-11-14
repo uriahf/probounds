@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Recreate the personalized decision-making example from Pearl (2021).">
 
-<title>Example usage – probounds</title>
+<title>Tutorial – probounds</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -69,10 +70,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fa43d1da9f0d3877f5852e9da8d4b70d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -100,8 +101,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -111,6 +117,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./probounds" alt="" class="navbar-logo">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">probounds</span>
     </a>
@@ -122,28 +131,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link active" href="./example.html" aria-current="page"> 
-<span class="menu-text">Example</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./changelog.html"> 
-<span class="menu-text">Changelog</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./contributing.html"> 
-<span class="menu-text">Contributing</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./conduct.html"> 
-<span class="menu-text">Code of Conduct</span></a>
+<span class="menu-text">Tutorial</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./reference/index.html"> 
 <span class="menu-text">API Reference</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/uriahf/probounds"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/uriahf/probounds/issues"> 
+<span class="menu-text">Issues</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -153,35 +157,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#calculate-bounds-directly-from-data" id="toc-calculate-bounds-directly-from-data" class="nav-link active" data-scroll-target="#calculate-bounds-directly-from-data"><span class="header-section-number">1</span> Calculate Bounds Directly from Data</a>
   <ul class="collapse">
-  <li><a href="#observational-data" id="toc-observational-data" class="nav-link" data-scroll-target="#observational-data"><span class="header-section-number">1.1</span> Observational Data</a></li>
-  <li><a href="#experimental-data" id="toc-experimental-data" class="nav-link" data-scroll-target="#experimental-data"><span class="header-section-number">1.2</span> Experimental Data</a></li>
-  <li><a href="#combined-data" id="toc-combined-data" class="nav-link" data-scroll-target="#combined-data"><span class="header-section-number">1.3</span> Combined Data</a></li>
-  </ul></li>
-  <li><a href="#calculate-bounds-by-feature" id="toc-calculate-bounds-by-feature" class="nav-link" data-scroll-target="#calculate-bounds-by-feature"><span class="header-section-number">2</span> Calculate Bounds by Feature</a></li>
+  <li><a href="#set-up-the-working-environment" id="toc-set-up-the-working-environment" class="nav-link active" data-scroll-target="#set-up-the-working-environment">Set up the working environment</a></li>
+  <li><a href="#reproduce-pearls-example-datasets" id="toc-reproduce-pearls-example-datasets" class="nav-link" data-scroll-target="#reproduce-pearls-example-datasets">Reproduce Pearl’s example datasets</a></li>
+  <li><a href="#build-probability-bound-crosstabs" id="toc-build-probability-bound-crosstabs" class="nav-link" data-scroll-target="#build-probability-bound-crosstabs">Build probability-bound crosstabs</a></li>
+  <li><a href="#calculate-probability-bounds" id="toc-calculate-probability-bounds" class="nav-link" data-scroll-target="#calculate-probability-bounds">Calculate probability bounds</a></li>
+  <li><a href="#end-to-end-helpers" id="toc-end-to-end-helpers" class="nav-link" data-scroll-target="#end-to-end-helpers">End-to-end helpers</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.dev/uriahf/probounds/blob/main/example.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/uriahf/probounds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Example usage</h1>
+<h1 class="title">Tutorial</h1>
+</div>
+
+<div>
+  <div class="description">
+    Recreate the personalized decision-making example from Pearl (2021).
+  </div>
 </div>
 
 
-
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-left">
 
     
   
@@ -193,170 +200,337 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>To use <code>probounds</code> in a project:</p>
-<div id="cell-2" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> probounds.probounds <span class="im">as</span> pb</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="set-up-the-working-environment" class="level1">
+<h1>Set up the working environment</h1>
+<div id="1733e0bf" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> probounds.probounds <span class="im">as</span> pb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-3" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_observed <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"trt"</span>: np.concatenate([np.repeat(<span class="dv">1</span>, <span class="dv">1400</span>), np.repeat(<span class="dv">0</span>, <span class="dv">600</span>)] <span class="op">*</span> <span class="dv">2</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"outcome"</span>: [<span class="dv">1</span>] <span class="op">*</span> <span class="dv">378</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">1022</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> <span class="dv">420</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">180</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> <span class="dv">980</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">420</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> <span class="dv">420</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">180</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"sex"</span>: [<span class="st">"Female"</span>] <span class="op">*</span> <span class="dv">2000</span> <span class="op">+</span> [<span class="st">"Male"</span>] <span class="op">*</span> <span class="dv">2000</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>df_experimental <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"trt"</span>: np.concatenate([np.repeat(<span class="dv">1</span>, <span class="dv">1000</span>), np.repeat(<span class="dv">0</span>, <span class="dv">1000</span>)] <span class="op">*</span> <span class="dv">2</span>),</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"outcome"</span>: [<span class="dv">1</span>] <span class="op">*</span> <span class="dv">489</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">511</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> <span class="dv">210</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">790</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> <span class="dv">490</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">510</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> <span class="dv">210</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">790</span>,</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"sex"</span>: [<span class="st">"Female"</span>] <span class="op">*</span> <span class="dv">2000</span> <span class="op">+</span> [<span class="st">"Male"</span>] <span class="op">*</span> <span class="dv">2000</span>,</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>probounds_crosstab_observed <span class="op">=</span> pb.create_probounds_crosstab(</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    df_observed, datatype<span class="op">=</span><span class="st">"observational"</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>probounds_crosstab_experimental <span class="op">=</span> pb.create_probounds_crosstab(</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    df_experimental, datatype<span class="op">=</span><span class="st">"experimental"</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="reproduce-pearls-example-datasets" class="level1">
+<h1>Reproduce Pearl’s example datasets</h1>
+<p>This walkthrough recreates the probability-bounds workflow from Pearl and Mueller’s discussion of personalized decision making, which combines observational and experimental evidence to personalize treatment decisions.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The original article is available at <a href="https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/">https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/</a>.</p>
+<p>The blog post reports the counts of outcomes for men and women across the observational and experimental cohorts. We encode those counts directly to reconstruct the underlying individual-level data without any randomness.</p>
+<div id="46fdbfe8" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>observational_counts <span class="op">=</span> [</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Female"</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">378</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Female"</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1022</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Female"</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">420</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Female"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">180</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Male"</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">980</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Male"</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">420</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Male"</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">420</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Male"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">180</span>),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>experimental_counts <span class="op">=</span> [</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Female"</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">489</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Female"</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">511</span>),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Female"</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">210</span>),</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Female"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">790</span>),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Male"</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">490</span>),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Male"</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">510</span>),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Male"</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">210</span>),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Male"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">790</span>),</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> expand_counts(records: <span class="bu">list</span>[<span class="bu">tuple</span>[<span class="bu">str</span>, <span class="bu">int</span>, <span class="bu">int</span>, <span class="bu">int</span>]]) <span class="op">-&gt;</span> pl.DataFrame:</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    expanded_columns: <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">list</span>[np.ndarray]] <span class="op">=</span> {<span class="st">"sex"</span>: [], <span class="st">"trt"</span>: [], <span class="st">"outcome"</span>: []}</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sex, trt, outcome, count <span class="kw">in</span> records:</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        expanded_columns[<span class="st">"sex"</span>].append(np.repeat(sex, count))</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        expanded_columns[<span class="st">"trt"</span>].append(np.repeat(trt, count))</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        expanded_columns[<span class="st">"outcome"</span>].append(np.repeat(outcome, count))</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pl.DataFrame(</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            name: np.concatenate(parts)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> name, parts <span class="kw">in</span> expanded_columns.items()</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>observed <span class="op">=</span> expand_counts(observational_counts)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>experiment <span class="op">=</span> expand_counts(experimental_counts)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>observed.describe()</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>experiment.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (9, 4)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">trt</th>
+<th data-quarto-table-cell-role="th">outcome</th>
+</tr>
+<tr class="odd">
+<th>str</th>
+<th>str</th>
+<th>f64</th>
+<th>f64</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"count"</td>
+<td>"4000"</td>
+<td>4000.0</td>
+<td>4000.0</td>
+</tr>
+<tr class="even">
+<td>"null_count"</td>
+<td>"0"</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>"mean"</td>
+<td>null</td>
+<td>0.5</td>
+<td>0.34975</td>
+</tr>
+<tr class="even">
+<td>"std"</td>
+<td>null</td>
+<td>0.500063</td>
+<td>0.476951</td>
+</tr>
+<tr class="odd">
+<td>"min"</td>
+<td>"Female"</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>"25%"</td>
+<td>null</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>"50%"</td>
+<td>null</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>"75%"</td>
+<td>null</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td>"max"</td>
+<td>"Male"</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="cell-4" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>probounds_crosstab_observed <span class="op">=</span> pb.create_probounds_crosstab(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    df_observed, datatype<span class="op">=</span><span class="st">"observational"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>probounds_crosstab_experimental <span class="op">=</span> pb.create_probounds_crosstab(</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    df_experimental, datatype<span class="op">=</span><span class="st">"experimental"</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+</div>
+</div>
+</section>
+<section id="build-probability-bound-crosstabs" class="level1">
+<h1>Build probability-bound crosstabs</h1>
+<div id="9b15aa38" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> format_probabilities(crosstab: pl.DataFrame) <span class="op">-&gt;</span> pl.DataFrame:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> crosstab.with_columns(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        [pl.<span class="bu">all</span>().exclude(<span class="st">"trt"</span>).<span class="bu">round</span>(<span class="dv">4</span>)]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>observed_crosstab <span class="op">=</span> pb.create_probounds_crosstab(observed, datatype<span class="op">=</span><span class="st">"observational"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>experimental_crosstab <span class="op">=</span> pb.create_probounds_crosstab(experiment, datatype<span class="op">=</span><span class="st">"experimental"</span>)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>probounds_crosstab_observed_by_sex <span class="op">=</span> pb.probounds_crosstab_feature(</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    df_observed, <span class="st">"observational"</span>, <span class="st">"sex"</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>probounds_crosstab_experimental_by_sex <span class="op">=</span> pb.probounds_crosstab_feature(</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    df_experimental, <span class="st">"experimental"</span>, <span class="st">"sex"</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>format_probabilities(observed_crosstab)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>format_probabilities(experimental_crosstab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 4)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">trt</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+<th data-quarto-table-cell-role="th">All</th>
+</tr>
+<tr class="odd">
+<th>str</th>
+<th>f64</th>
+<th>f64</th>
+<th>f64</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"0"</td>
+<td>0.79</td>
+<td>0.21</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>"1"</td>
+<td>0.5105</td>
+<td>0.4895</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td>"All"</td>
+<td>0.6502</td>
+<td>0.3498</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="cell-5" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_observed_from_probounds_data(probounds_crosstab_observed)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_observed_from_probounds_data(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    probounds_crosstab_observed_by_sex[<span class="st">"Female"</span>]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_observed_from_probounds_data(</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    probounds_crosstab_observed_by_sex[<span class="st">"Male"</span>]</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_experimental_from_probounds_data(probounds_crosstab_experimental)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_experimental_from_probounds_data(</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    probounds_crosstab_experimental_by_sex[<span class="st">"Female"</span>]</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_experimental_from_probounds_data(</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    probounds_crosstab_experimental_by_sex[<span class="st">"Male"</span>]</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Use <code>probounds_crosstab_feature</code> to produce crosstabs for each value of a feature. This is helpful when comparing groups such as demographic slices.</p>
+<div id="218fa2b6" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>observed_by_sex <span class="op">=</span> pb.probounds_crosstab_feature(observed, <span class="st">"observational"</span>, <span class="st">"sex"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>experimental_by_sex <span class="op">=</span> pb.probounds_crosstab_feature(experiment, <span class="st">"experimental"</span>, <span class="st">"sex"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>format_probabilities(observed_by_sex[<span class="st">"Female"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 4)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">trt</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+<th data-quarto-table-cell-role="th">All</th>
+</tr>
+<tr class="odd">
+<th>str</th>
+<th>f64</th>
+<th>f64</th>
+<th>f64</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"0"</td>
+<td>0.09</td>
+<td>0.21</td>
+<td>0.3</td>
+</tr>
+<tr class="even">
+<td>"1"</td>
+<td>0.511</td>
+<td>0.189</td>
+<td>0.7</td>
+</tr>
+<tr class="odd">
+<td>"All"</td>
+<td>0.601</td>
+<td>0.399</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-probability-bounds" class="level1">
+<h1>Calculate probability bounds</h1>
+<p>Once a crosstab is available, the dedicated helper functions compute the bounds for observational and experimental studies.</p>
+<div id="1157ecc6" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> pb.calculate_bounds_observed_from_probounds_data(observed_crosstab)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> pb.calculate_bounds_experimental_from_probounds_data(experimental_crosstab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Benefit Bounds: 0 &lt;= Benefit &lt;= 0.4295
-Benefit Bounds: 0 &lt;= Benefit &lt;= 0.279
-Benefit Bounds: 0 &lt;= Benefit &lt;= 0.58
-Benefit Bounds: 0.27949999999999997 &lt;= Benefit &lt;= 0.4895
+<pre><code>Benefit Bounds: 0.0 &lt;= Benefit &lt;= 0.4295
+Benefit Bounds: 0.27949999999999997 &lt;= Benefit &lt;= 0.4895</code></pre>
+</div>
+</div>
+<p>The same operations can be applied to each group returned by <code>probounds_crosstab_feature</code>.</p>
+<div id="21b08b3a" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> pb.calculate_bounds_observed_from_probounds_data(observed_by_sex[<span class="st">"Female"</span>])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> pb.calculate_bounds_observed_from_probounds_data(observed_by_sex[<span class="st">"Male"</span>])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> pb.calculate_bounds_experimental_from_probounds_data(experimental_by_sex[<span class="st">"Female"</span>])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> pb.calculate_bounds_experimental_from_probounds_data(experimental_by_sex[<span class="st">"Male"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Benefit Bounds: 0.0 &lt;= Benefit &lt;= 0.279
+Benefit Bounds: 0.0 &lt;= Benefit &lt;= 0.58
 Benefit Bounds: 0.279 &lt;= Benefit &lt;= 0.489
 Benefit Bounds: 0.28 &lt;= Benefit &lt;= 0.49</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>{'lower_bound': np.float64(0.28), 'upper_bound': np.float64(0.49)}</code></pre>
-</div>
-</div>
-<section id="calculate-bounds-directly-from-data" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="calculate-bounds-directly-from-data"><span class="header-section-number">1</span> Calculate Bounds Directly from Data</h2>
-<section id="observational-data" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="observational-data"><span class="header-section-number">1.1</span> Observational Data</h3>
-<div id="cell-8" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_observed(df_observed)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_observed_by_feature(df_observed, <span class="st">"sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Benefit Bounds: 0 &lt;= Benefit &lt;= 0.4295</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
-Cell <span class="ansi-green-fg ansi-bold">In[18], line 2</span>
-<span class="ansi-green-fg">      1</span> pb<span style="color:rgb(98,98,98)">.</span>calculate_bounds_observed(df_observed)
-<span class="ansi-green-fg ansi-bold">----&gt; 2</span> <span class="ansi-yellow-bg">pb</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">calculate_bounds_observed_by_feature</span>(df_observed, <span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">sex</span><span style="color:rgb(175,0,0)">'</span>)
-
-<span class="ansi-red-fg ansi-bold">AttributeError</span>: module 'probounds.probounds' has no attribute 'calculate_bounds_observed_by_feature'</pre>
-</div>
-</div>
 </div>
 </section>
-<section id="experimental-data" class="level3" data-number="1.2">
-<h3 data-number="1.2" class="anchored" data-anchor-id="experimental-data"><span class="header-section-number">1.2</span> Experimental Data</h3>
-<div id="cell-10" class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_experimental(df_experimental)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_experimental(df_experimental[df_experimental[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"Female"</span>])</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_experimental(df_experimental[df_experimental[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"Male"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="end-to-end-helpers" class="level1">
+<h1>End-to-end helpers</h1>
+<p>For convenience, the package exposes wrappers that accept raw data. These helpers cover observational, experimental, and combined datasets.</p>
+<div id="3d56626b" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_observed(observed)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_observed_by_feature(observed, <span class="st">"sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Benefit Bounds: 0 &lt;= Benefit &lt;= 1.2795
-Benefit Bounds: 0 &lt;= Benefit &lt;= 1.279
-Benefit Bounds: 0 &lt;= Benefit &lt;= 1.28</code></pre>
+<pre><code>Benefit Bounds: 0.0 &lt;= Benefit &lt;= 0.4295
+Benefit Bounds: 0.0 &lt;= Benefit &lt;= 0.58
+Benefit Bounds: 0.0 &lt;= Benefit|Male &lt;= 0.58
+Benefit Bounds: 0.0 &lt;= Benefit &lt;= 0.279
+Benefit Bounds: 0.0 &lt;= Benefit|Female &lt;= 0.279</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>{'lower_bound': 0, 'upper_bound': np.float64(1.28)}</code></pre>
-</div>
-</div>
-</section>
-<section id="combined-data" class="level3" data-number="1.3">
-<h3 data-number="1.3" class="anchored" data-anchor-id="combined-data"><span class="header-section-number">1.3</span> Combined Data</h3>
-<div id="cell-12" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_combined(df_observed, df_experimental)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_combined(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    df_observed[df_observed[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"Female"</span>],</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    df_experimental[df_experimental[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"Female"</span>],</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_combined(</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    df_observed[df_observed[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"Male"</span>],</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    df_experimental[df_experimental[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"Male"</span>],</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>{'lower_bound': np.float64(0.49), 'upper_bound': np.float64(0.49)}</code></pre>
+<pre><code>{'Male': {'lower_bound': 0.0, 'upper_bound': 0.58},
+ 'Female': {'lower_bound': 0.0, 'upper_bound': 0.279}}</code></pre>
 </div>
 </div>
-</section>
-</section>
-<section id="calculate-bounds-by-feature" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="calculate-bounds-by-feature"><span class="header-section-number">2</span> Calculate Bounds by Feature</h2>
-<div id="cell-14" class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_combined_by_feature(df_observed, df_experimental, <span class="st">"sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="8d3e6a51" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_experimental(experiment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Benefit Bounds: 0.27949999999999997 &lt;= Benefit &lt;= 0.4895</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>{'lower_bound': 0.27949999999999997, 'upper_bound': 0.4895}</code></pre>
+</div>
+</div>
+<div id="ef6804b2" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_combined(observed, experiment)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>pb.calculate_bounds_combined_by_feature(observed, experiment, <span class="st">"sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Benefit Bounds: 0.279 &lt;= Benefit|Female &lt;= 0.279
 Benefit Bounds: 0.49 &lt;= Benefit|Male &lt;= 0.49</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>{'Female': {'lower_bound': np.float64(0.279),
-  'upper_bound': np.float64(0.279)},
- 'Male': {'lower_bound': np.float64(0.49), 'upper_bound': np.float64(0.49)}}</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>{'Female': {'lower_bound': 0.279, 'upper_bound': 0.279},
+ 'Male': {'lower_bound': 0.49, 'upper_bound': 0.49}}</code></pre>
 </div>
 </div>
 
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Judea Pearl and Scott Mueller, “Personalized Decision Making,” <em>Causality Blog</em> (April 29, 2021). <a href="https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/" class="uri">https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -439,6 +613,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -549,6 +725,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -775,8 +952,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2024 probounds</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/uriahf/probounds/blob/main/LICENSE">
+<p>MIT License</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/uriahf/probounds/blob/main/example.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/uriahf/probounds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

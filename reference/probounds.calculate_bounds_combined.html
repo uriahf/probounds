@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>index – probounds</title>
+<title>probounds.calculate_bounds_combined – probounds</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -97,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Tutorial</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../reference/index.html" aria-current="page"> 
+    <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">API Reference</span></a>
   </li>  
 </ul>
@@ -127,12 +161,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#function-reference" id="toc-function-reference" class="nav-link active" data-scroll-target="#function-reference">Function reference</a>
+  <li><a href="#probounds.probounds.calculate_bounds_combined" id="toc-probounds.probounds.calculate_bounds_combined" class="nav-link active" data-scroll-target="#probounds.probounds.calculate_bounds_combined">probounds.calculate_bounds_combined</a>
   <ul class="collapse">
-  <li><a href="#crosstab-generation" id="toc-crosstab-generation" class="nav-link" data-scroll-target="#crosstab-generation">Crosstab generation</a></li>
-  <li><a href="#bounds-from-prepared-crosstabs" id="toc-bounds-from-prepared-crosstabs" class="nav-link" data-scroll-target="#bounds-from-prepared-crosstabs">Bounds from prepared crosstabs</a></li>
-  <li><a href="#direct-bounds-from-raw-data" id="toc-direct-bounds-from-raw-data" class="nav-link" data-scroll-target="#direct-bounds-from-raw-data">Direct bounds from raw data</a></li>
-  <li><a href="#feature-level-analyses" id="toc-feature-level-analyses" class="nav-link" data-scroll-target="#feature-level-analyses">Feature-level analyses</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -143,72 +175,66 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="function-reference" class="level1 doc doc-index">
-<h1 class="doc doc-index">Function reference</h1>
-<section id="crosstab-generation" class="level2">
-<h2 class="anchored" data-anchor-id="crosstab-generation">Crosstab generation</h2>
-<p>Create normalized crosstabs from observational and experimental data.</p>
+<section id="probounds.probounds.calculate_bounds_combined" class="level1">
+<h1>probounds.calculate_bounds_combined</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>probounds.calculate_bounds_combined(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    raw_data_observational,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    raw_data_experimental,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Combine observational and experimental datasets to compute bounds.</p>
+<section id="parameters" class="level2 doc-section doc-section-parameters">
+<h2 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 9%">
+<col style="width: 58%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td><a href="../reference/probounds.create_probounds_crosstab.html#probounds.probounds.create_probounds_crosstab">probounds.create_probounds_crosstab</a></td>
-<td>Generate a normalized probability bounds crosstab.</td>
+<td>raw_data_observational</td>
+<td>FrameLike</td>
+<td>Observational dataset containing <code>trt</code> and <code>outcome</code> columns.</td>
+<td><em>required</em></td>
 </tr>
 <tr class="even">
-<td><a href="../reference/probounds.probounds_crosstab_feature.html#probounds.probounds.probounds_crosstab_feature">probounds.probounds_crosstab_feature</a></td>
-<td>Build crosstabs for every category of <code>feature</code>.</td>
+<td>raw_data_experimental</td>
+<td>FrameLike</td>
+<td>Experimental dataset containing <code>trt</code> and <code>outcome</code> columns.</td>
+<td><em>required</em></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="bounds-from-prepared-crosstabs" class="level2">
-<h2 class="anchored" data-anchor-id="bounds-from-prepared-crosstabs">Bounds from prepared crosstabs</h2>
-<p>Use previously computed crosstabs to derive benefit bounds.</p>
+<section id="returns" class="level2 doc-section doc-section-returns">
+<h2 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 27%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td><a href="../reference/probounds.calculate_bounds_observed_from_probounds_data.html#probounds.probounds.calculate_bounds_observed_from_probounds_data">probounds.calculate_bounds_observed_from_probounds_data</a></td>
-<td>Compute bounds for observational data from a crosstab.</td>
-</tr>
-<tr class="even">
-<td><a href="../reference/probounds.calculate_bounds_experimental_from_probounds_data.html#probounds.probounds.calculate_bounds_experimental_from_probounds_data">probounds.calculate_bounds_experimental_from_probounds_data</a></td>
-<td>Compute bounds for experimental data from a crosstab.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="direct-bounds-from-raw-data" class="level2">
-<h2 class="anchored" data-anchor-id="direct-bounds-from-raw-data">Direct bounds from raw data</h2>
-<p>Convenience wrappers that operate on raw datasets.</p>
-<table class="caption-top table">
-<tbody>
-<tr class="odd">
-<td><a href="../reference/probounds.calculate_bounds_observed.html#probounds.probounds.calculate_bounds_observed">probounds.calculate_bounds_observed</a></td>
-<td>Calculate bounds directly from observational data.</td>
-</tr>
-<tr class="even">
-<td><a href="../reference/probounds.calculate_bounds_experimental.html#probounds.probounds.calculate_bounds_experimental">probounds.calculate_bounds_experimental</a></td>
-<td>Calculate bounds directly from experimental data.</td>
-</tr>
-<tr class="odd">
-<td><a href="../reference/probounds.calculate_bounds_combined.html#probounds.probounds.calculate_bounds_combined">probounds.calculate_bounds_combined</a></td>
-<td>Combine observational and experimental datasets to compute bounds.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="feature-level-analyses" class="level2">
-<h2 class="anchored" data-anchor-id="feature-level-analyses">Feature-level analyses</h2>
-<p>Evaluate probability bounds for each category of a feature.</p>
-<table class="caption-top table">
-<tbody>
-<tr class="odd">
-<td><a href="../reference/probounds.calculate_bounds_observed_by_feature.html#probounds.probounds.calculate_bounds_observed_by_feature">probounds.calculate_bounds_observed_by_feature</a></td>
-<td>Calculate observational bounds for each category of <code>feature</code>.</td>
-</tr>
-<tr class="even">
-<td><a href="../reference/probounds.calculate_bounds_combined_by_feature.html#probounds.probounds.calculate_bounds_combined_by_feature">probounds.calculate_bounds_combined_by_feature</a></td>
-<td>Compute combined bounds for each category of <code>feature</code>.</td>
+<td></td>
+<td>dict[str, float]</td>
+<td>Combined lower and upper probability bounds.</td>
 </tr>
 </tbody>
 </table>

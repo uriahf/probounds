@@ -2,113 +2,295 @@
   {
     "objectID": "reference/probounds.create_probounds_crosstab.html",
     "href": "reference/probounds.create_probounds_crosstab.html",
-    "title": "1 probounds.create_probounds_crosstab",
+    "title": "probounds.create_probounds_crosstab",
     "section": "",
-    "text": "1 probounds.create_probounds_crosstab\nprobounds.create_probounds_crosstab(raw_data, datatype)"
+    "text": "probounds.create_probounds_crosstab(raw_data, datatype)\nGenerate a normalized probability bounds crosstab.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nraw_data\nFrameLike\nObservational or experimental data containing trt and outcome columns.\nrequired\n\n\ndatatype\n('observational', 'experimental')\nThe type of study represented by raw_data. Observational data are normalized against the total number of records, while experimental data are normalized within each treatment group.\n\"observational\"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npolars.DataFrame\nCrosstab with normalized outcome probabilities and an All summary column.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nValueError\nRaised when datatype is not supported or when raw_data does not contain any records."
   },
   {
-    "objectID": "reference/index.html",
-    "href": "reference/index.html",
-    "title": "1 Function reference",
+    "objectID": "reference/probounds.create_probounds_crosstab.html#parameters",
+    "href": "reference/probounds.create_probounds_crosstab.html#parameters",
+    "title": "probounds.create_probounds_crosstab",
     "section": "",
-    "text": "Functions to inspect docstrings.\n\n\n\nprobounds.create_probounds_crosstab"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nraw_data\nFrameLike\nObservational or experimental data containing trt and outcome columns.\nrequired\n\n\ndatatype\n('observational', 'experimental')\nThe type of study represented by raw_data. Observational data are normalized against the total number of records, while experimental data are normalized within each treatment group.\n\"observational\""
   },
   {
-    "objectID": "reference/index.html#some-functions",
-    "href": "reference/index.html#some-functions",
-    "title": "1 Function reference",
+    "objectID": "reference/probounds.create_probounds_crosstab.html#returns",
+    "href": "reference/probounds.create_probounds_crosstab.html#returns",
+    "title": "probounds.create_probounds_crosstab",
     "section": "",
-    "text": "Functions to inspect docstrings.\n\n\n\nprobounds.create_probounds_crosstab"
+    "text": "Name\nType\nDescription\n\n\n\n\n\npolars.DataFrame\nCrosstab with normalized outcome probabilities and an All summary column."
   },
   {
-    "objectID": "contributing.html",
-    "href": "contributing.html",
-    "title": "probounds",
+    "objectID": "reference/probounds.create_probounds_crosstab.html#raises",
+    "href": "reference/probounds.create_probounds_crosstab.html#raises",
+    "title": "probounds.create_probounds_crosstab",
     "section": "",
-    "text": "kbakfgeub ../CONTRIBUTING.md"
+    "text": "Name\nType\nDescription\n\n\n\n\n\nValueError\nRaised when datatype is not supported or when raw_data does not contain any records."
   },
   {
-    "objectID": "changelog.html",
-    "href": "changelog.html",
-    "title": "probounds",
+    "objectID": "reference/probounds.calculate_bounds_combined.html",
+    "href": "reference/probounds.calculate_bounds_combined.html",
+    "title": "probounds.calculate_bounds_combined",
     "section": "",
-    "text": "zkcitmivc ../CHANGELOG.md"
+    "text": "probounds.calculate_bounds_combined(\n    raw_data_observational,\n    raw_data_experimental,\n)\nCombine observational and experimental datasets to compute bounds.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nraw_data_observational\nFrameLike\nObservational dataset containing trt and outcome columns.\nrequired\n\n\nraw_data_experimental\nFrameLike\nExperimental dataset containing trt and outcome columns.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, float]\nCombined lower and upper probability bounds."
   },
   {
-    "objectID": "conduct.html",
-    "href": "conduct.html",
-    "title": "probounds",
+    "objectID": "reference/probounds.calculate_bounds_combined.html#parameters",
+    "href": "reference/probounds.calculate_bounds_combined.html#parameters",
+    "title": "probounds.calculate_bounds_combined",
     "section": "",
-    "text": "lfplgjdid ../CONDUCT.md"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nraw_data_observational\nFrameLike\nObservational dataset containing trt and outcome columns.\nrequired\n\n\nraw_data_experimental\nFrameLike\nExperimental dataset containing trt and outcome columns.\nrequired"
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_combined.html#returns",
+    "href": "reference/probounds.calculate_bounds_combined.html#returns",
+    "title": "probounds.calculate_bounds_combined",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ndict[str, float]\nCombined lower and upper probability bounds."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_experimental_from_probounds_data.html",
+    "href": "reference/probounds.calculate_bounds_experimental_from_probounds_data.html",
+    "title": "probounds.calculate_bounds_experimental_from_probounds_data",
+    "section": "",
+    "text": "probounds.calculate_bounds_experimental_from_probounds_data(probounds_data)\nCompute bounds for experimental data from a crosstab.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nprobounds_data\npolars.DataFrame\nCrosstab generated by :func:create_probounds_crosstab for experimental data.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, float]\nLower and upper bounds of the benefit."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_experimental_from_probounds_data.html#parameters",
+    "href": "reference/probounds.calculate_bounds_experimental_from_probounds_data.html#parameters",
+    "title": "probounds.calculate_bounds_experimental_from_probounds_data",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nprobounds_data\npolars.DataFrame\nCrosstab generated by :func:create_probounds_crosstab for experimental data.\nrequired"
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_experimental_from_probounds_data.html#returns",
+    "href": "reference/probounds.calculate_bounds_experimental_from_probounds_data.html#returns",
+    "title": "probounds.calculate_bounds_experimental_from_probounds_data",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ndict[str, float]\nLower and upper bounds of the benefit."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_observed_by_feature.html",
+    "href": "reference/probounds.calculate_bounds_observed_by_feature.html",
+    "title": "probounds.calculate_bounds_observed_by_feature",
+    "section": "",
+    "text": "probounds.calculate_bounds_observed_by_feature(df_observed, feature)\nCalculate observational bounds for each category of feature.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndf_observed\nFrameLike\nObservational dataset containing the feature column.\nrequired\n\n\nfeature\nstr\nColumn on which to partition the data prior to computing bounds.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[Hashable, dict[str, float]]\nMapping from each feature value to its observational bounds."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_observed_by_feature.html#parameters",
+    "href": "reference/probounds.calculate_bounds_observed_by_feature.html#parameters",
+    "title": "probounds.calculate_bounds_observed_by_feature",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ndf_observed\nFrameLike\nObservational dataset containing the feature column.\nrequired\n\n\nfeature\nstr\nColumn on which to partition the data prior to computing bounds.\nrequired"
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_observed_by_feature.html#returns",
+    "href": "reference/probounds.calculate_bounds_observed_by_feature.html#returns",
+    "title": "probounds.calculate_bounds_observed_by_feature",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ndict[Hashable, dict[str, float]]\nMapping from each feature value to its observational bounds."
+  },
+  {
+    "objectID": "reference/probounds.probounds_crosstab_feature.html",
+    "href": "reference/probounds.probounds_crosstab_feature.html",
+    "title": "probounds.probounds_crosstab_feature",
+    "section": "",
+    "text": "probounds.probounds_crosstab_feature(raw_data, datatype, feature)\nBuild crosstabs for every category of feature.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nraw_data\nFrameLike\nInput dataset that includes the feature column alongside trt and outcome.\nrequired\n\n\ndatatype\n('observational', 'experimental')\nThe type of study represented by raw_data.\n\"observational\"\n\n\nfeature\nstr\nColumn used to split the dataset prior to computing crosstabs.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[Hashable, polars.DataFrame]\nMapping from each feature value to its probability bounds crosstab."
+  },
+  {
+    "objectID": "reference/probounds.probounds_crosstab_feature.html#parameters",
+    "href": "reference/probounds.probounds_crosstab_feature.html#parameters",
+    "title": "probounds.probounds_crosstab_feature",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nraw_data\nFrameLike\nInput dataset that includes the feature column alongside trt and outcome.\nrequired\n\n\ndatatype\n('observational', 'experimental')\nThe type of study represented by raw_data.\n\"observational\"\n\n\nfeature\nstr\nColumn used to split the dataset prior to computing crosstabs.\nrequired"
+  },
+  {
+    "objectID": "reference/probounds.probounds_crosstab_feature.html#returns",
+    "href": "reference/probounds.probounds_crosstab_feature.html#returns",
+    "title": "probounds.probounds_crosstab_feature",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ndict[Hashable, polars.DataFrame]\nMapping from each feature value to its probability bounds crosstab."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_observed.html",
+    "href": "reference/probounds.calculate_bounds_observed.html",
+    "title": "probounds.calculate_bounds_observed",
+    "section": "",
+    "text": "probounds.calculate_bounds_observed(df_observed)\nCalculate bounds directly from observational data.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndf_observed\nFrameLike\nObservational dataset containing trt and outcome columns.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, float]\nLower and upper bounds of the benefit for the observational dataset."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_observed.html#parameters",
+    "href": "reference/probounds.calculate_bounds_observed.html#parameters",
+    "title": "probounds.calculate_bounds_observed",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ndf_observed\nFrameLike\nObservational dataset containing trt and outcome columns.\nrequired"
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_observed.html#returns",
+    "href": "reference/probounds.calculate_bounds_observed.html#returns",
+    "title": "probounds.calculate_bounds_observed",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ndict[str, float]\nLower and upper bounds of the benefit for the observational dataset."
   },
   {
     "objectID": "example.html",
     "href": "example.html",
-    "title": "Example usage",
+    "title": "Tutorial",
     "section": "",
-    "text": "To use probounds in a project:\nimport probounds.probounds as pb\nimport pandas as pd\nimport numpy as np\ndf_observed = pd.DataFrame(\n    {\n        \"trt\": np.concatenate([np.repeat(1, 1400), np.repeat(0, 600)] * 2),\n        \"outcome\": [1] * 378\n        + [0] * 1022\n        + [1] * 420\n        + [0] * 180\n        + [1] * 980\n        + [0] * 420\n        + [1] * 420\n        + [0] * 180,\n        \"sex\": [\"Female\"] * 2000 + [\"Male\"] * 2000,\n    }\n)\n\ndf_experimental = pd.DataFrame(\n    {\n        \"trt\": np.concatenate([np.repeat(1, 1000), np.repeat(0, 1000)] * 2),\n        \"outcome\": [1] * 489\n        + [0] * 511\n        + [1] * 210\n        + [0] * 790\n        + [1] * 490\n        + [0] * 510\n        + [1] * 210\n        + [0] * 790,\n        \"sex\": [\"Female\"] * 2000 + [\"Male\"] * 2000,\n    }\n)\n\nprobounds_crosstab_observed = pb.create_probounds_crosstab(\n    df_observed, datatype=\"observational\"\n)\nprobounds_crosstab_experimental = pb.create_probounds_crosstab(\n    df_experimental, datatype=\"experimental\"\n)\nprobounds_crosstab_observed = pb.create_probounds_crosstab(\n    df_observed, datatype=\"observational\"\n)\nprobounds_crosstab_experimental = pb.create_probounds_crosstab(\n    df_experimental, datatype=\"experimental\"\n)\n\n\nprobounds_crosstab_observed_by_sex = pb.probounds_crosstab_feature(\n    df_observed, \"observational\", \"sex\"\n)\nprobounds_crosstab_experimental_by_sex = pb.probounds_crosstab_feature(\n    df_experimental, \"experimental\", \"sex\"\n)\npb.calculate_bounds_observed_from_probounds_data(probounds_crosstab_observed)\npb.calculate_bounds_observed_from_probounds_data(\n    probounds_crosstab_observed_by_sex[\"Female\"]\n)\npb.calculate_bounds_observed_from_probounds_data(\n    probounds_crosstab_observed_by_sex[\"Male\"]\n)\n\npb.calculate_bounds_experimental_from_probounds_data(probounds_crosstab_experimental)\npb.calculate_bounds_experimental_from_probounds_data(\n    probounds_crosstab_experimental_by_sex[\"Female\"]\n)\npb.calculate_bounds_experimental_from_probounds_data(\n    probounds_crosstab_experimental_by_sex[\"Male\"]\n)\n\nBenefit Bounds: 0 &lt;= Benefit &lt;= 0.4295\nBenefit Bounds: 0 &lt;= Benefit &lt;= 0.279\nBenefit Bounds: 0 &lt;= Benefit &lt;= 0.58\nBenefit Bounds: 0.27949999999999997 &lt;= Benefit &lt;= 0.4895\nBenefit Bounds: 0.279 &lt;= Benefit &lt;= 0.489\nBenefit Bounds: 0.28 &lt;= Benefit &lt;= 0.49\n\n\n{'lower_bound': np.float64(0.28), 'upper_bound': np.float64(0.49)}"
+    "text": "import numpy as np\nimport polars as pl\n\nimport probounds.probounds as pb"
   },
   {
-    "objectID": "example.html#calculate-bounds-directly-from-data",
-    "href": "example.html#calculate-bounds-directly-from-data",
-    "title": "Example usage",
-    "section": "1 Calculate Bounds Directly from Data",
-    "text": "1 Calculate Bounds Directly from Data\n\n1.1 Observational Data\n\npb.calculate_bounds_observed(df_observed)\npb.calculate_bounds_observed_by_feature(df_observed, \"sex\")\n\nBenefit Bounds: 0 &lt;= Benefit &lt;= 0.4295\n\n\n\n---------------------------------------------------------------------------\nAttributeError                            Traceback (most recent call last)\nCell In[18], line 2\n      1 pb.calculate_bounds_observed(df_observed)\n----&gt; 2 pb.calculate_bounds_observed_by_feature(df_observed, 'sex')\n\nAttributeError: module 'probounds.probounds' has no attribute 'calculate_bounds_observed_by_feature'\n\n\n\n\n\n1.2 Experimental Data\n\npb.calculate_bounds_experimental(df_experimental)\npb.calculate_bounds_experimental(df_experimental[df_experimental[\"sex\"] == \"Female\"])\npb.calculate_bounds_experimental(df_experimental[df_experimental[\"sex\"] == \"Male\"])\n\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.2795\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.279\nBenefit Bounds: 0 &lt;= Benefit &lt;= 1.28\n\n\n{'lower_bound': 0, 'upper_bound': np.float64(1.28)}\n\n\n\n\n1.3 Combined Data\n\npb.calculate_bounds_combined(df_observed, df_experimental)\npb.calculate_bounds_combined(\n    df_observed[df_observed[\"sex\"] == \"Female\"],\n    df_experimental[df_experimental[\"sex\"] == \"Female\"],\n)\npb.calculate_bounds_combined(\n    df_observed[df_observed[\"sex\"] == \"Male\"],\n    df_experimental[df_experimental[\"sex\"] == \"Male\"],\n)\n\n{'lower_bound': np.float64(0.49), 'upper_bound': np.float64(0.49)}"
+    "objectID": "example.html#footnotes",
+    "href": "example.html#footnotes",
+    "title": "Tutorial",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nJudea Pearl and Scott Mueller, “Personalized Decision Making,” Causality Blog (April 29, 2021). https://causality.cs.ucla.edu/blog/index.php/2021/04/29/personalized-decision-making/.↩︎"
   },
   {
-    "objectID": "example.html#calculate-bounds-by-feature",
-    "href": "example.html#calculate-bounds-by-feature",
-    "title": "Example usage",
-    "section": "2 Calculate Bounds by Feature",
-    "text": "2 Calculate Bounds by Feature\n\npb.calculate_bounds_combined_by_feature(df_observed, df_experimental, \"sex\")\n\nBenefit Bounds: 0.279 &lt;= Benefit|Female &lt;= 0.279\nBenefit Bounds: 0.49 &lt;= Benefit|Male &lt;= 0.49\n\n\n{'Female': {'lower_bound': np.float64(0.279),\n  'upper_bound': np.float64(0.279)},\n 'Male': {'lower_bound': np.float64(0.49), 'upper_bound': np.float64(0.49)}}"
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "Create normalized crosstabs from observational and experimental data.\n\n\n\nprobounds.create_probounds_crosstab\nGenerate a normalized probability bounds crosstab.\n\n\nprobounds.probounds_crosstab_feature\nBuild crosstabs for every category of feature.\n\n\n\n\n\n\nUse previously computed crosstabs to derive benefit bounds.\n\n\n\nprobounds.calculate_bounds_observed_from_probounds_data\nCompute bounds for observational data from a crosstab.\n\n\nprobounds.calculate_bounds_experimental_from_probounds_data\nCompute bounds for experimental data from a crosstab.\n\n\n\n\n\n\nConvenience wrappers that operate on raw datasets.\n\n\n\nprobounds.calculate_bounds_observed\nCalculate bounds directly from observational data.\n\n\nprobounds.calculate_bounds_experimental\nCalculate bounds directly from experimental data.\n\n\nprobounds.calculate_bounds_combined\nCombine observational and experimental datasets to compute bounds.\n\n\n\n\n\n\nEvaluate probability bounds for each category of a feature.\n\n\n\nprobounds.calculate_bounds_observed_by_feature\nCalculate observational bounds for each category of feature.\n\n\nprobounds.calculate_bounds_combined_by_feature\nCompute combined bounds for each category of feature."
+  },
+  {
+    "objectID": "reference/index.html#crosstab-generation",
+    "href": "reference/index.html#crosstab-generation",
+    "title": "Function reference",
+    "section": "",
+    "text": "Create normalized crosstabs from observational and experimental data.\n\n\n\nprobounds.create_probounds_crosstab\nGenerate a normalized probability bounds crosstab.\n\n\nprobounds.probounds_crosstab_feature\nBuild crosstabs for every category of feature."
+  },
+  {
+    "objectID": "reference/index.html#bounds-from-prepared-crosstabs",
+    "href": "reference/index.html#bounds-from-prepared-crosstabs",
+    "title": "Function reference",
+    "section": "",
+    "text": "Use previously computed crosstabs to derive benefit bounds.\n\n\n\nprobounds.calculate_bounds_observed_from_probounds_data\nCompute bounds for observational data from a crosstab.\n\n\nprobounds.calculate_bounds_experimental_from_probounds_data\nCompute bounds for experimental data from a crosstab."
+  },
+  {
+    "objectID": "reference/index.html#direct-bounds-from-raw-data",
+    "href": "reference/index.html#direct-bounds-from-raw-data",
+    "title": "Function reference",
+    "section": "",
+    "text": "Convenience wrappers that operate on raw datasets.\n\n\n\nprobounds.calculate_bounds_observed\nCalculate bounds directly from observational data.\n\n\nprobounds.calculate_bounds_experimental\nCalculate bounds directly from experimental data.\n\n\nprobounds.calculate_bounds_combined\nCombine observational and experimental datasets to compute bounds."
+  },
+  {
+    "objectID": "reference/index.html#feature-level-analyses",
+    "href": "reference/index.html#feature-level-analyses",
+    "title": "Function reference",
+    "section": "",
+    "text": "Evaluate probability bounds for each category of a feature.\n\n\n\nprobounds.calculate_bounds_observed_by_feature\nCalculate observational bounds for each category of feature.\n\n\nprobounds.calculate_bounds_combined_by_feature\nCompute combined bounds for each category of feature."
   },
   {
     "objectID": "reference/get_object.html",
     "href": "reference/get_object.html",
-    "title": "1 get_object",
+    "title": "get_object",
     "section": "",
     "text": "get_object(\n    path,\n    object_name=None,\n    parser='numpy',\n    load_aliases=True,\n    dynamic=False,\n    loader=None,\n)\nFetch a griffe object.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nstr\nAn import path to the object. This should have the form path.to.module:object. For example, quartodoc:get_object or quartodoc:MdRenderer.render.\nrequired\n\n\nobject_name\n'str | None'\n(Deprecated). A function name.\nNone\n\n\nparser\nstr\nA docstring parser to use.\n'numpy'\n\n\nload_aliases\n\nFor aliases that were imported from other modules, should we load that module?\nTrue\n\n\ndynamic\n\nWhether to dynamically import object. Useful if docstring is not hard-coded, but was set on object by running python code.\nFalse\n\n\n\n\n\n\npreview: print a user-friendly preview of a griffe object.\n\n\n\n&gt;&gt;&gt; get_function(\"quartodoc\", \"get_function\")\n&lt;Function('get_function', ...\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nx\ndc.Object\nabc"
   },
   {
     "objectID": "reference/get_object.html#parameters",
     "href": "reference/get_object.html#parameters",
-    "title": "1 get_object",
+    "title": "get_object",
     "section": "",
     "text": "Name\nType\nDescription\nDefault\n\n\n\n\npath\nstr\nAn import path to the object. This should have the form path.to.module:object. For example, quartodoc:get_object or quartodoc:MdRenderer.render.\nrequired\n\n\nobject_name\n'str | None'\n(Deprecated). A function name.\nNone\n\n\nparser\nstr\nA docstring parser to use.\n'numpy'\n\n\nload_aliases\n\nFor aliases that were imported from other modules, should we load that module?\nTrue\n\n\ndynamic\n\nWhether to dynamically import object. Useful if docstring is not hard-coded, but was set on object by running python code.\nFalse"
   },
   {
     "objectID": "reference/get_object.html#see-also",
     "href": "reference/get_object.html#see-also",
-    "title": "1 get_object",
+    "title": "get_object",
     "section": "",
     "text": "preview: print a user-friendly preview of a griffe object."
   },
   {
     "objectID": "reference/get_object.html#examples",
     "href": "reference/get_object.html#examples",
-    "title": "1 get_object",
+    "title": "get_object",
     "section": "",
     "text": "&gt;&gt;&gt; get_function(\"quartodoc\", \"get_function\")\n&lt;Function('get_function', ..."
   },
   {
     "objectID": "reference/get_object.html#returns",
     "href": "reference/get_object.html#returns",
-    "title": "1 get_object",
+    "title": "get_object",
     "section": "",
     "text": "Name\nType\nDescription\n\n\n\n\nx\ndc.Object\nabc"
   },
   {
+    "objectID": "reference/probounds.calculate_bounds_observed_from_probounds_data.html",
+    "href": "reference/probounds.calculate_bounds_observed_from_probounds_data.html",
+    "title": "probounds.calculate_bounds_observed_from_probounds_data",
+    "section": "",
+    "text": "probounds.calculate_bounds_observed_from_probounds_data(probounds_data)\nCompute bounds for observational data from a crosstab.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nprobounds_data\npolars.DataFrame\nCrosstab generated by :func:create_probounds_crosstab for observational data.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, float]\nLower and upper bounds of the benefit."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_observed_from_probounds_data.html#parameters",
+    "href": "reference/probounds.calculate_bounds_observed_from_probounds_data.html#parameters",
+    "title": "probounds.calculate_bounds_observed_from_probounds_data",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nprobounds_data\npolars.DataFrame\nCrosstab generated by :func:create_probounds_crosstab for observational data.\nrequired"
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_observed_from_probounds_data.html#returns",
+    "href": "reference/probounds.calculate_bounds_observed_from_probounds_data.html#returns",
+    "title": "probounds.calculate_bounds_observed_from_probounds_data",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ndict[str, float]\nLower and upper bounds of the benefit."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_experimental.html",
+    "href": "reference/probounds.calculate_bounds_experimental.html",
+    "title": "probounds.calculate_bounds_experimental",
+    "section": "",
+    "text": "probounds.calculate_bounds_experimental(df_experimental)\nCalculate bounds directly from experimental data.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndf_experimental\nFrameLike\nExperimental dataset containing trt and outcome columns.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, float]\nLower and upper bounds of the benefit for the experimental dataset."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_experimental.html#parameters",
+    "href": "reference/probounds.calculate_bounds_experimental.html#parameters",
+    "title": "probounds.calculate_bounds_experimental",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ndf_experimental\nFrameLike\nExperimental dataset containing trt and outcome columns.\nrequired"
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_experimental.html#returns",
+    "href": "reference/probounds.calculate_bounds_experimental.html#returns",
+    "title": "probounds.calculate_bounds_experimental",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ndict[str, float]\nLower and upper bounds of the benefit for the experimental dataset."
+  },
+  {
     "objectID": "reference/preview.html",
     "href": "reference/preview.html",
-    "title": "1 preview",
+    "title": "preview",
     "section": "",
     "text": "preview(ast, max_depth=999, compact=False, as_string=False)\nPrint a friendly representation of a griffe object (e.g. function, docstring)\n\n\n&gt;&gt;&gt; from quartodoc import get_object\n&gt;&gt;&gt; obj = get_object(\"quartodoc\", \"get_object\")\n&gt;&gt;&gt; preview(obj.docstring.parsed)\n...\n&gt;&gt;&gt; preview(obj)\n..."
   },
   {
     "objectID": "reference/preview.html#examples",
     "href": "reference/preview.html#examples",
-    "title": "1 preview",
+    "title": "preview",
     "section": "",
     "text": "&gt;&gt;&gt; from quartodoc import get_object\n&gt;&gt;&gt; obj = get_object(\"quartodoc\", \"get_object\")\n&gt;&gt;&gt; preview(obj.docstring.parsed)\n...\n&gt;&gt;&gt; preview(obj)\n..."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_combined_by_feature.html",
+    "href": "reference/probounds.calculate_bounds_combined_by_feature.html",
+    "title": "probounds.calculate_bounds_combined_by_feature",
+    "section": "",
+    "text": "probounds.calculate_bounds_combined_by_feature(\n    df_observed,\n    df_experimental,\n    feature,\n)\nCompute combined bounds for each category of feature.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndf_observed\nFrameLike\nObservational dataset containing the feature column.\nrequired\n\n\ndf_experimental\nFrameLike\nExperimental dataset containing the feature column.\nrequired\n\n\nfeature\nstr\nColumn on which to partition the data prior to computing bounds.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[Hashable, dict[str, float]]\nMapping of feature value to the combined probability bounds."
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_combined_by_feature.html#parameters",
+    "href": "reference/probounds.calculate_bounds_combined_by_feature.html#parameters",
+    "title": "probounds.calculate_bounds_combined_by_feature",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ndf_observed\nFrameLike\nObservational dataset containing the feature column.\nrequired\n\n\ndf_experimental\nFrameLike\nExperimental dataset containing the feature column.\nrequired\n\n\nfeature\nstr\nColumn on which to partition the data prior to computing bounds.\nrequired"
+  },
+  {
+    "objectID": "reference/probounds.calculate_bounds_combined_by_feature.html#returns",
+    "href": "reference/probounds.calculate_bounds_combined_by_feature.html#returns",
+    "title": "probounds.calculate_bounds_combined_by_feature",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ndict[Hashable, dict[str, float]]\nMapping of feature value to the combined probability bounds."
   }
 ]

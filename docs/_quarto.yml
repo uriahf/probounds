@@ -11,20 +11,11 @@ website:
   navbar:
     logo: "probounds"
     left:
-      - href: index.md
-        text: Overview
       - href: example.qmd
         text: Tutorial
       - href: reference/index.qmd
         text: API Reference
-      - text: Project notes
-        menu:
-          - text: Changelog
-            href: changelog.md
-          - text: Contributing
-            href: contributing.md
-          - text: Code of Conduct
-            href: conduct.md
+        
     right:
       - icon: github
         href: https://github.com/uriahf/probounds

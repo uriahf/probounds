@@ -13,6 +13,7 @@ color:
     coral: "#F97316"
     sand: "#F8FAFC"
     shell: "#E2E8F0"
+    link: "#ce3d15"
   foreground: midnight
   background: sand
   primary: tidepool
@@ -30,20 +31,21 @@ typography:
       source: file
       files:
         - path: assets/fonts/Fraunces9pt-Light.woff2
-          weight: 300
-          style: normal
-      # Download additional Fraunces weights from https://github.com/undercasetype/Fraunces
-      # and place them in docs/assets/fonts/ alongside this file if broader styling is needed.
+    - family: Commissioner
+      source: google
+      weight: [400, 600]
+      style: [normal, italic]
   base:
-    family: Fraunces
-    weight: 300
-    size: 1.05rem
+    family: Commissioner
+    weight: 400
+    size: 16px
     line-height: 1.7
   headings:
     family: Fraunces
-    weight: 400
+    weight: 700
+    style: normal
     line-height: 1.2
-    transform: none
-  monospace:
-    family: JetBrains Mono, SFMono-Regular, Menlo, monospace
-    size: 0.92rem
+  link:
+    color: link
+    weight: 600
+    decoration: underline

@@ -4,7 +4,6 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -14,28 +13,70 @@ jobs:
       id-token: write
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Install uv and set the python version
-      uses: astral-sh/setup-uv@v5
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install the project
-      run: uv sync --all-extras --dev
+      - name: Install the project
+        run: uv sync --all-extras --dev
 
-    - name: Build Package
-      run: uv build
+      - name: Build Package
+        run: uv build
 
-    - name: Run tests
-      run: uv run pytest tests
+      - name: Run tests
+        run: uv run pytest tests
 
-    - name: Show package version
-      run: |
-        grep -r "version" pyproject.toml || \
-        grep -r "__version__" src/probounds || \
-        python -c "import probounds; print(probounds.__version__)"
+      - name: Show package version
+        run: |
+          grep -r "version" pyproject.toml || \
+          grep -r "__version__" src/probounds || \
+          python -c "import probounds; print(probounds.__version__)"
 
-    - name: Publish package
-      if: github.ref == 'refs/heads/main' && matrix.python-version == '3.10'
-      run: uv publish
+      - name: Publish package
+        if: github.ref == 'refs/heads/main' && matrix.python-version == '3.10'
+        run: uv publish
+
+  docs:
+    # Only publish docs from main, and only on push (not PRs)
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: build   # wait for tests / build to pass
+
+    permissions:
+      contents: write    # needed to push to gh-pages
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install project (for Quarto Python engine)
+        run: uv sync --all-extras --dev
+
+      # Quarto CLI
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: "latest"
+
+      # Make Quarto use the uv virtualenv python
+      - name: Point Quarto to uv's Python
+        run: echo "QUARTO_PYTHON=.venv/bin/python" >> $GITHUB_ENV
+
+      # If your Quarto project is not in repo root, set working-directory
+      - name: Render Quarto site
+        run: quarto render
+        # working-directory: docs  # <-- uncomment if your _quarto.yml is in docs/
+
+      - name: Publish to GitHub Pages
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

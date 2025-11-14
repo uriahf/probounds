@@ -72,7 +72,7 @@ jobs:
       # If your Quarto project is not in repo root, set working-directory
       - name: Render Quarto site
         run: quarto render
-        # working-directory: docs  # <-- uncomment if your _quarto.yml is in docs/
+        working-directory: docs  # <-- uncomment if your _quarto.yml is in docs/
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2

@@ -63,7 +63,7 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: "latest"
+          version: "1.5.57"
 
       # Make Quarto use the uv virtualenv python
       - name: Point Quarto to uv's Python
